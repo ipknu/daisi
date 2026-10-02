@@ -1,0 +1,2188 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>DAISI Ukraine — Новини та дослідження</title>
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Flag_of_Ukraine.svg/960px-Flag_of_Ukraine.svg.png">
+  <!-- Захист від блокування YouTube плеєра -->
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <!-- Шрифт Montserrat -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Іконки Lucide -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    :root {
+      --primary-red: #b80000;         /* Фірмовий червоний акцент */
+      --primary-red-hover: #900000;
+      --bg-light: #F4F6F9;            /* Світло-сірий фон */
+      --bg-card: #FFFFFF;             /* Чистий білий для карток */
+      --border-color: #E2E8F0;        /* Рамки та розділювачі */
+      --text-main: #0B192C;           /* Темно-синій основний текст */
+      --text-muted: #64748B;          /* Спокійний сірий */
+      --accent-blue: #1E3E62;         /* Темно-синій акцент */
+      --font-family: 'Montserrat', sans-serif;
+    }
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    html, body {
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+    body {
+      background-color: var(--bg-light);
+      color: var(--text-main);
+      font-family: var(--font-family);
+      line-height: 1.6;
+      padding: 10px 14px 40px; /* Базовий відступ для десктопу / Google Sites */
+      overflow-wrap: break-word;
+      word-break: break-word;
+      -webkit-font-smoothing: antialiased;
+    }
+    /* Індикатор прокрутки */
+    #progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary-red), var(--accent-blue));
+      width: 0%;
+      z-index: 10000;
+      transition: width 0.1s ease;
+    }
+    /* Шапка сайту */
+    header {
+      padding: 18px 20px;
+      position: relative;
+      background: radial-gradient(circle at top, rgba(184, 0, 0, 0.08) 0%, transparent 60%), #0B192C;
+      border-bottom: 4px solid var(--primary-red);
+      border-radius: 16px;
+      box-shadow: 0 8px 25px rgba(11, 25, 44, 0.08);
+      margin-bottom: 16px;
+      width: 100%;
+    }
+    .header-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .header-branding {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      flex: 1 1 450px;
+      max-width: 650px;
+      min-width: 0;
+    }
+    /* Рядок логотипа та заголовка */
+    .branding-header-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 8px;
+      width: 100%;
+    }
+    .daisi-header-logo {
+      width: clamp(52px, 12vw, 66px);
+      height: clamp(52px, 12vw, 66px);
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      background-color: #FFFFFF;
+      display: block;
+    }
+    .branding-titles {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      min-width: 0;
+    }
+    h1 {
+      font-size: clamp(1.3rem, 4vw, 1.65rem);
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 2px;
+      color: #FFFFFF;
+      line-height: 1.2;
+    }
+    .subtitle {
+      font-size: clamp(0.74rem, 2vw, 0.8rem);
+      color: #94A3B8;
+      margin: 0;
+      font-weight: 500;
+    }
+    /* Опис проєкту під логотипом */
+    .project-description {
+      font-size: clamp(0.72rem, 1.8vw, 0.76rem);
+      color: #CBD5E1;
+      line-height: 1.45;
+      margin: 0;
+      max-width: 580px;
+    }
+    /* Компактне пошукове поле, пропорційне селектору сортування */
+    .header-search {
+      flex: 0 0 auto;
+      width: clamp(260px, 26vw, 320px);
+      max-width: 100%;
+      margin-left: auto;
+    }
+    .search-container {
+      position: relative;
+      width: 100%;
+    }
+    .search-input {
+      width: 100%;
+      min-height: 42px; /* Узгоджена висота з селектором сортування */
+      padding: 8px 16px 8px 38px;
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 30px; /* Єдиний радіус скруглення */
+      color: var(--text-main);
+      font-family: var(--font-family);
+      font-size: 0.8rem;
+      transition: all 0.25s ease;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    }
+    .search-input:focus {
+      outline: none;
+      border-color: var(--primary-red);
+      box-shadow: 0 0 0 3px rgba(184, 0, 0, 0.12);
+    }
+    .search-icon {
+      position: absolute;
+      left: 13px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      pointer-events: none;
+      width: 15px;
+      height: 15px;
+    }
+
+    /* Панель керування: Сортування вирівняно по лівому краю */
+    .controls-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 10px 16px;
+      margin-bottom: 22px;
+      box-shadow: 0 4px 15px rgba(11, 25, 44, 0.02);
+      display: flex;
+      justify-content: flex-start; /* Вирівнювання строго ліворуч */
+      align-items: center;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+      width: 100%;
+    }
+    .sort-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .control-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      letter-spacing: 0.5px;
+    }
+    .sort-select-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .sort-select {
+      appearance: none;
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 30px;
+      padding: 8px 32px 8px 16px;
+      min-height: 42px;
+      font-family: var(--font-family);
+      font-size: 0.8rem;
+      color: var(--text-main);
+      font-weight: 700;
+      cursor: pointer;
+      outline: none;
+      transition: all 0.2s ease;
+      touch-action: manipulation;
+    }
+    .sort-select:focus {
+      border-color: var(--primary-red);
+    }
+    .sort-icon {
+      position: absolute;
+      right: 12px;
+      color: var(--text-muted);
+      width: 14px;
+      height: 14px;
+      pointer-events: none;
+    }
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0;
+      width: 100%;
+    }
+
+    /* ВЕРТИКАЛЬНА ОДНОКОЛОНКОВА СТРІЧКА НОВИН */
+    .news-feed {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      width: 100%;
+    }
+    .news-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: row;
+      align-items: stretch;
+      width: 100%;
+      min-height: 220px;
+      border-left: 5px solid var(--primary-red);
+      box-shadow: 0 4px 15px rgba(11, 25, 44, 0.02);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+      cursor: pointer;
+    }
+    .news-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 28px rgba(11, 25, 44, 0.08);
+      border-color: rgba(30, 62, 98, 0.25);
+    }
+
+    /* Ліва колонка картки: Медіа (Десктоп) */
+    .news-card-media-wrap {
+      flex: 0 0 33%;
+      max-width: 360px;
+      min-width: 250px;
+      position: relative;
+      background-color: #E2E8F0;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .news-media-thumb-container {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .news-card-thumb-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+    .news-card:hover .news-card-thumb-img {
+      transform: scale(1.04);
+    }
+    .media-video-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.32);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.3s ease;
+    }
+    .news-card:hover .media-video-overlay {
+      background-color: rgba(0, 0, 0, 0.48);
+    }
+    .media-play-pill {
+      width: 46px;
+      height: 46px;
+      background-color: var(--primary-red);
+      border-radius: 50%;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 16px rgba(184, 0, 0, 0.45);
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .news-card:hover .media-play-pill {
+      transform: scale(1.12);
+    }
+    .media-caption-badge {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: linear-gradient(transparent, rgba(0,0,0,0.85));
+      padding: 14px 12px 6px;
+      color: white;
+      font-size: 0.72rem;
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Права колонка картки: Заголовок + Лід */
+    .news-card-body-wrap {
+      flex: 1 1 auto;
+      padding: 22px 26px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-width: 0;
+    }
+    .news-card-meta-top {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 9px;
+      border-radius: 50px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      background-color: rgba(184, 0, 0, 0.08);
+      color: var(--primary-red);
+    }
+    .news-card-meta-text {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+    .news-card-title {
+      font-size: clamp(1.12rem, 3.2vw, 1.25rem);
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.35;
+      margin-bottom: 8px;
+      transition: color 0.2s ease;
+      overflow-wrap: break-word;
+      word-break: break-word;
+    }
+    .news-card:hover .news-card-title {
+      color: var(--primary-red);
+    }
+    .news-card-divider {
+      width: 35px;
+      height: 3px;
+      background-color: var(--primary-red);
+      border-radius: 2px;
+      margin-bottom: 12px;
+    }
+    /* Видимий ліміт ліду збільшено до 12 рядків */
+    .news-card-excerpt {
+      font-size: clamp(0.84rem, 2.2vw, 0.88rem);
+      line-height: 1.65;
+      color: #334155;
+      margin-bottom: 16px;
+      display: -webkit-box;
+      -webkit-line-clamp: 12; /* Збільшено до 12 рядків */
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      flex-grow: 1;
+      white-space: pre-line;
+      overflow-wrap: break-word;
+      word-break: break-word;
+    }
+    .news-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--border-color);
+      padding-top: 12px;
+      margin-top: auto;
+    }
+    .read-more-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background-color: transparent;
+      border: none;
+      color: var(--primary-red);
+      font-family: var(--font-family);
+      font-size: 0.84rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: gap 0.2s ease, color 0.2s ease;
+      padding: 8px 0;
+      min-height: 44px; /* Зручний таргет для пальця */
+    }
+    .news-card:hover .read-more-btn {
+      gap: 9px;
+      color: var(--primary-red-hover);
+    }
+    .read-more-btn i {
+      width: 15px;
+      height: 15px;
+    }
+
+    /* МОДАЛЬНЕ ВІКНО ПОВНОГО МАТЕРІАЛУ (Mobile-Optimized) */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(6px);
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+      padding: 10px;
+    }
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .modal-card {
+      background: var(--bg-card);
+      border-radius: 18px;
+      width: min(95vw, 760px);
+      max-height: 92vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      overflow: hidden;
+      transform: scale(0.96);
+      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+      border: 1px solid var(--border-color);
+      position: relative;
+    }
+    .modal-overlay.active .modal-card {
+      transform: scale(1);
+    }
+    .modal-close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid var(--border-color);
+      width: 44px; /* Сенсорний таргет 44x44px */
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--text-main);
+      transition: all 0.2s ease;
+      z-index: 20;
+      touch-action: manipulation;
+    }
+    .modal-close-btn:hover {
+      background: var(--primary-red);
+      color: white;
+      border-color: var(--primary-red);
+    }
+    .modal-scrollable-content {
+      padding: 24px 22px;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* Збереження вихідних пропорцій фото (центрується, без штучного розтягування) */
+    .modal-news-img-wrap {
+      width: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 20px;
+      background-color: transparent;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-news-img {
+      display: block;
+      max-width: 100%;
+      width: auto;
+      height: auto;
+      max-height: 520px;
+      margin: 0 auto;
+      object-fit: contain;
+      border-radius: 10px;
+      box-shadow: 0 4px 16px rgba(11, 25, 44, 0.08);
+    }
+
+    .modal-title {
+      font-size: clamp(1.2rem, 3.8vw, 1.45rem);
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.35;
+      margin-bottom: 14px;
+      padding-right: 30px;
+    }
+
+    /* СТИЛІЗАЦІЯ ПОВНОГО ТЕКСТУ СТАТТІ: BOLD, ITALIC, СПИСКИ, ЗАПИТАННЯ */
+    .modal-paragraphs-block {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .modal-paragraph {
+      font-size: clamp(0.9rem, 2.4vw, 0.95rem);
+      line-height: 1.75;
+      color: #1E293B;
+      white-space: pre-line;
+      overflow-wrap: break-word;
+      word-break: break-word;
+      margin: 0 0 10px 0;
+    }
+    .modal-paragraph strong, 
+    .modal-question-para strong, 
+    .article-subheading strong, 
+    .article-list-item strong {
+      font-weight: 700 !important;
+      color: var(--text-main) !important;
+    }
+    .modal-paragraph em,
+    .modal-question-para em,
+    .article-byline-para em {
+      font-style: italic !important;
+    }
+    .modal-question-para {
+      margin-top: 16px;
+      margin-bottom: 6px;
+      line-height: 1.5;
+    }
+    .modal-question-para strong {
+      font-size: 1.02rem;
+    }
+    .article-byline-para {
+      margin-top: 20px;
+      padding-top: 12px;
+      border-top: 1px dashed var(--border-color);
+      font-size: 0.92rem;
+    }
+    .article-subheading {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-top: 18px;
+      margin-bottom: 6px;
+      line-height: 1.4;
+    }
+    .article-list-item {
+      font-size: 0.95rem;
+      line-height: 1.65;
+      color: #1E293B;
+      margin-bottom: 6px;
+      padding-left: 4px;
+    }
+    .news-inline-link {
+      color: var(--accent-blue);
+      text-decoration: underline;
+      font-weight: 600;
+      overflow-wrap: break-word;
+      word-break: break-all;
+    }
+    .news-inline-link:hover {
+      color: var(--primary-red);
+    }
+    .iframe-wrapper {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 10px;
+      overflow: hidden;
+      background-color: #000;
+    }
+    .iframe-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .generic-link-preview {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background-color: var(--bg-light);
+      border: 1px solid var(--border-color);
+      padding: 8px 12px;
+      border-radius: 10px;
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.2s ease;
+      touch-action: manipulation;
+    }
+    .generic-link-preview:hover {
+      border-color: var(--accent-blue);
+      background-color: rgba(30, 62, 98, 0.04);
+    }
+    .link-icon-container {
+      width: 28px;
+      height: 28px;
+      background-color: rgba(30, 62, 98, 0.1);
+      color: var(--accent-blue);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .link-details {
+      min-width: 0;
+    }
+    .link-title {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text-main);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .link-domain {
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* Плаваюча панель */
+    .floating-controls-panel {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 1000;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      padding: 6px 10px;
+      border-radius: 40px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      opacity: 0;
+      visibility: hidden;
+    }
+    .floating-controls-panel.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+    .floating-search-box {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .floating-search-icon {
+      position: absolute;
+      left: 14px;
+      color: var(--text-muted);
+      width: 14px;
+      height: 14px;
+      pointer-events: none;
+    }
+    .floating-search-input {
+      border: 1px solid var(--border-color);
+      background: var(--bg-light);
+      padding: 6px 14px 6px 36px;
+      border-radius: 30px;
+      font-family: var(--font-family);
+      font-size: 0.8rem;
+      color: var(--text-main);
+      width: 180px;
+      min-height: 40px;
+      transition: all 0.3s ease;
+    }
+    .floating-search-input:focus {
+      outline: none;
+      border-color: var(--primary-red);
+      width: 220px;
+    }
+    .back-to-top {
+      background-color: var(--primary-red);
+      color: white;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 10px rgba(184, 0, 0, 0.2);
+      flex-shrink: 0;
+      touch-action: manipulation;
+    }
+    .back-to-top:hover {
+      background-color: var(--primary-red-hover);
+      transform: translateY(-2px);
+    }
+    .back-to-top i {
+      width: 16px;
+      height: 16px;
+    }
+    .loading-state, .error-state, .no-results {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 20px;
+      text-align: center;
+    }
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(184, 0, 0, 0.1);
+      border-top-color: var(--primary-red);
+      border-radius: 50%;
+      animation: spin 0.8s infinite linear;
+      margin-bottom: 12px;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .loading-state p {
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+    .error-icon {
+      width: 48px;
+      height: 48px;
+      color: var(--primary-red);
+      margin-bottom: 12px;
+    }
+    .error-state h3, .no-results h3 {
+      font-size: 1.25rem;
+      margin-bottom: 6px;
+    }
+    .error-state p, .no-results p {
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      max-width: 400px;
+      font-size: 0.85rem;
+    }
+    .retry-btn {
+      background-color: var(--primary-red);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      min-height: 44px;
+      border-radius: 30px;
+      font-family: var(--font-family);
+      font-weight: 700;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+      touch-action: manipulation;
+    }
+    .retry-btn:hover {
+      background-color: var(--primary-red-hover);
+    }
+
+    /* ПІДВАЛ ТА ПАРТНЕРИ */
+    footer {
+      padding: 30px 10px 15px;
+      border-top: 1px solid var(--border-color);
+      margin-top: 45px;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+      width: 100%;
+    }
+    .footer-top-row {
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      margin-bottom: 25px;
+      width: 100%;
+    }
+    /* Блок контактів та фінансування у лівому кутку */
+    .footer-contact-block {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 4px;
+      text-align: left;
+      max-width: 700px;
+      width: 100%;
+    }
+    .contact-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin: 0;
+      letter-spacing: -0.3px;
+    }
+    .footer-funding-text {
+      font-size: clamp(0.74rem, 2vw, 0.78rem);
+      line-height: 1.55;
+      color: #64748B;
+      text-align: left;
+      margin: 4px 0 10px 0;
+    }
+    .contact-question {
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: #334155;
+      margin: 0;
+    }
+    .contact-email {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--primary-red);
+      text-decoration: none;
+      transition: color 0.2s ease;
+      margin-bottom: 8px;
+      display: inline-block;
+      padding: 4px 0;
+    }
+    .contact-email:hover {
+      color: var(--primary-red-hover);
+      text-decoration: underline;
+    }
+    .footer-social-links {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 4px;
+      flex-wrap: wrap;
+    }
+    .social-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      transition: transform 0.2s ease;
+      min-width: 44px;
+      min-height: 44px;
+      touch-action: manipulation;
+    }
+    .social-icon-img {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      object-fit: cover;
+      display: block;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .social-btn:hover .social-icon-img {
+      transform: translateY(-2px) scale(1.06);
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.18);
+    }
+
+    /* Логотипи партнерів в одну лінію пропорційно */
+    .partner-logos-bar {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: nowrap;
+      gap: 18px;
+      padding: 16px 24px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 10px rgba(11, 25, 44, 0.02);
+      overflow-x: auto;
+      scrollbar-width: none;
+      width: 100%;
+    }
+    .partner-logos-bar::-webkit-scrollbar {
+      display: none;
+    }
+    .partner-logo-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+      flex-shrink: 0;
+      min-height: 44px;
+      touch-action: manipulation;
+    }
+    .partner-logo-link:hover {
+      transform: scale(1.05);
+      opacity: 0.9;
+    }
+    .partner-logo-img {
+      display: block;
+      object-fit: contain;
+    }
+    
+    /* Гармонійні пропорції для кожного логотипу */
+    .logo-knu {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+    }
+    .logo-daisi {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+    }
+    .logo-qmul {
+      height: 38px;
+      max-width: 155px;
+    }
+    .logo-lsbu {
+      height: 54px;
+      max-width: 185px;
+    }
+    .logo-apu {
+      height: 48px;
+      max-width: 62px;
+    }
+    .logo-nihr {
+      height: 36px;
+      max-width: 175px;
+    }
+
+    .footer-copy {
+      font-size: 0.76rem;
+      color: #94A3B8;
+      text-align: left;
+      margin-top: 10px;
+    }
+
+    /* ==============================================================
+       АДАПТИВНІ БРЕЙКПОІНТИ (1024px, 768px, 480px, 375px)
+       ============================================================== */
+
+    /* Планшети та вузькі десктопи (<= 1024px) */
+    @media (max-width: 1024px) {
+      .header-container {
+        gap: 14px;
+      }
+      .news-card-media-wrap {
+        flex: 0 0 35%;
+        max-width: 320px;
+      }
+      .partner-logos-bar {
+        gap: 14px;
+        padding: 14px 18px;
+      }
+    }
+
+    /* Мобільні пристрої та планшети (<= 768px) */
+    @media (max-width: 768px) {
+      body {
+        padding: 8px 10px 40px;
+      }
+      header {
+        padding: 16px 14px;
+        border-radius: 14px;
+      }
+      .header-container {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+      }
+
+      /* Прибрано vertical flex-basis, що створював пустий простір під описом */
+      .header-branding {
+        flex: 0 0 auto;
+        max-width: 100%;
+        width: 100%;
+      }
+      .header-search {
+        flex: 0 0 auto;
+        width: 100%;
+        max-width: 320px; /* Компактно і пропорційно на мобільних */
+        margin-left: 0;
+        margin-top: 4px;
+      }
+
+      .controls-card {
+        padding: 10px 14px;
+        justify-content: flex-start;
+      }
+      .sort-group {
+        width: 100%;
+        justify-content: flex-start;
+      }
+      .sort-select-wrapper {
+        flex: 1 1 auto;
+        max-width: 280px;
+      }
+      .sort-select {
+        width: 100%;
+        min-height: 42px;
+      }
+
+      /* КАРТКА НА МОБІЛЬНОМУ: Зображення зверху, 100% ширина, збереження пропорцій */
+      .news-card {
+        flex-direction: column;
+        min-height: auto;
+      }
+      .news-card-media-wrap {
+        flex: none;
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        height: auto;
+        background-color: transparent;
+        border-bottom: 1px solid var(--border-color);
+      }
+      .news-media-thumb-container {
+        width: 100%;
+        height: auto;
+      }
+      .news-card-thumb-img {
+        width: 100%;
+        height: auto;
+        max-width: 100%;
+        max-height: 380px;
+        object-fit: contain;
+      }
+      .news-card-media-wrap.has-video .news-media-thumb-container {
+        aspect-ratio: 16 / 9;
+      }
+      .news-card-media-wrap.has-video .news-card-thumb-img {
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .news-card-body-wrap {
+        padding: 16px 16px 14px;
+      }
+
+      /* Плаваюча панель на мобільному */
+      .floating-controls-panel {
+        bottom: 12px;
+        right: 12px;
+        left: 12px;
+        width: auto;
+        justify-content: space-between;
+        padding: 4px 8px;
+        border-radius: 35px;
+      }
+      .floating-search-box {
+        flex: 1;
+      }
+      .floating-search-input {
+        width: 100%;
+      }
+      .floating-search-input:focus {
+        width: 100%;
+      }
+
+      /* Модальне вікно */
+      .modal-card {
+        width: 96vw;
+        max-height: 94vh;
+        border-radius: 14px;
+      }
+      .modal-scrollable-content {
+        padding: 18px 14px 20px;
+      }
+      .modal-news-img {
+        max-height: 45vh;
+      }
+
+      /* Партнери без горизонтального скролу */
+      .partner-logos-bar {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 16px 20px;
+        padding: 14px 12px;
+      }
+    }
+
+    /* Компактні телефони (<= 480px, включаючи 375px та 390px) */
+    @media (max-width: 480px) {
+      body {
+        padding: 6px 8px 50px;
+      }
+      header {
+        padding: 14px 12px;
+      }
+      .branding-header-row {
+        gap: 10px;
+      }
+      .daisi-header-logo {
+        width: 50px;
+        height: 50px;
+      }
+      .header-search {
+        max-width: 100%;
+      }
+      .news-card-body-wrap {
+        padding: 14px 12px 12px;
+      }
+      .news-card-excerpt {
+        margin-bottom: 12px;
+      }
+      .footer-contact-block {
+        gap: 2px;
+      }
+      .footer-copy {
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Прогрес скролу -->
+  <div id="progress-bar"></div>
+
+  <!-- Шапка сайту -->
+  <header>
+    <div class="header-container">
+      <div class="header-branding">
+        <div class="branding-header-row">
+          <img 
+            src="https://ipsycho.knu.ua/wp-content/uploads/2025/12/DAISI-logo_mini.jpg" 
+            alt="DAISI Ukraine Logo" 
+            class="daisi-header-logo"
+            referrerpolicy="no-referrer"
+            decoding="async"
+          >
+          <div class="branding-titles">
+            <h1>DAISI Ukraine</h1>
+            <p class="subtitle">Вересневі підсумки від команди проєкту</p>
+          </div>
+        </div>
+        <p class="project-description">
+          Удосконалення та інтеграція мобільних послуг з охорони психічного здоров’я в Україні (DAISI Ukraine) — чотирирічний проєкт, покликаний інтегрувати й масштабувати мобільні громадські команди психічного здоров’я (МСМНТ) по всій Україні. Реалізується у партнерстві між Лондонським університетом королеви Марії та Інститутом психіатрії КНУ імені Тараса Шевченка.
+        </p>
+      </div>
+
+      <!-- Пошук (компактний та пропорційний до сортування) -->
+      <div class="header-search">
+        <div class="search-container">
+          <i data-lucide="search" class="search-icon"></i>
+          <input type="text" id="mainSearchInput" class="search-input" placeholder="Шукати в новинах, тексті або анонсах...">
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Панель керування: Сортування вирівняно по лівому краю -->
+    <div class="controls-card">
+      <div class="sort-group">
+        <span class="control-label" for="sortSelect">Сортувати:</span>
+        <div class="sort-select-wrapper">
+          <select id="sortSelect" class="sort-select">
+            <option value="id-asc" selected>Перші додані (№ ↑)</option>
+            <option value="id-desc">Останні додані (№ ↓)</option>
+            <option value="date-asc">Датою внесення (Старі спочатку)</option>
+            <option value="date-desc">Датою внесення (Нові спочатку)</option>
+          </select>
+          <i data-lucide="chevron-down" class="sort-icon"></i>
+        </div>
+      </div>
+    </div>
+
+    <!-- Завантаження -->
+    <div id="loadingState" class="loading-state">
+      <div class="spinner"></div>
+      <p>Оновлення стрічки новин із таблиці DAISI...</p>
+    </div>
+
+    <!-- Помилка зв'язку -->
+    <div id="errorState" class="error-state" style="display: none;">
+      <i data-lucide="alert-triangle" class="error-icon"></i>
+      <h3>Збій синхронізації з таблицею</h3>
+      <p>Не вдалося завантажити дані з Google Sheets. Перевірте доступ або оновіть сторінку.</p>
+      <button class="retry-btn" id="retryFetchBtn">Оновити сторінку</button>
+    </div>
+
+    <!-- Вертикальна одноколонкова стрічка новин -->
+    <div class="news-feed" id="newsGrid"></div>
+  </main>
+
+  <!-- Плаваюча панель швидкого пошуку і повернення нагору -->
+  <div class="floating-controls-panel" id="floatingControls">
+    <div class="floating-search-box">
+      <i data-lucide="search" class="floating-search-icon"></i>
+      <input type="text" id="floatingSearchInput" class="floating-search-input" placeholder="Пошук новини...">
+    </div>
+    <button class="back-to-top" id="backToTopBtn" title="Вгору">
+      <i data-lucide="arrow-up"></i>
+    </button>
+  </div>
+
+  <!-- Модальне вікно для читання повного матеріалу -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal-card">
+      <button class="modal-close-btn" id="modalCloseBtn" title="Закрити">
+        <i data-lucide="x"></i>
+      </button>
+      <div class="modal-scrollable-content" id="modalTarget">
+        <!-- Тільки повний текст новини завантажується сюди -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Підвал: контакти в лівому кутку, партнери та фінансування -->
+  <footer>
+    <div class="footer-top-row">
+      <div class="footer-contact-block">
+        <h3 class="contact-title">DAISI Ukraine Project</h3>
+        
+        <p class="footer-funding-text">
+          Проєкт фінансується Національним інститутом досліджень у галузі охорони здоров’я Великої Британії (NIHR) та реалізується у партнерстві між Лондонським університетом королеви Марії та Інститутом психіатрії КНУ імені Тараса Шевченка за участі Лондонського університету Саут-Бенк та Асоціації психіатрів України.
+        </p>
+
+        <p class="contact-question">Маєш питання? Напиши нам!</p>
+        <a href="mailto:ipsycho@knu.ua" class="contact-email">ipsycho@knu.ua</a>
+        
+        <div class="footer-social-links">
+          <a href="https://ipsycho.knu.ua/DAISI_Project/" target="_blank" rel="noopener noreferrer" class="social-btn" title="Офіційний сайт проєкту DAISI Ukraine">
+            <img src="https://play-lh.googleusercontent.com/T2cibPUERR6x4Sn85_LHUlk7gPWwLkXGVIk4-c6SfW05h6VRfEsB-BYPuaPMnyCBcaq4avofktcQGFDNO8nxDw=s0-br30" alt="Сайт DAISI Ukraine" class="social-icon-img" decoding="async">
+          </a>
+          <a href="https://www.facebook.com/profile.php?id=61591091354771&locale=uk_UA" target="_blank" rel="noopener noreferrer" class="social-btn" title="Facebook DAISI Ukraine">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/c/cd/Facebook_logo_%28square%29.png" alt="Facebook DAISI Ukraine" class="social-icon-img" decoding="async">
+          </a>
+          <a href="https://www.linkedin.com/company/daisi-ukraine/?viewAsMember=true" target="_blank" rel="noopener noreferrer" class="social-btn" title="LinkedIn DAISI Ukraine">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" alt="LinkedIn DAISI Ukraine" class="social-icon-img" decoding="async">
+          </a>
+          <a href="https://www.instagram.com/institute_of_psychiatry/" target="_blank" rel="noopener noreferrer" class="social-btn" title="Instagram Інституту психіатрії">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram Інституту психіатрії" class="social-icon-img" decoding="async">
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Логотипи партнерів -->
+    <div class="partner-logos-bar">
+      <a href="https://ipsycho.knu.ua/" target="_blank" rel="noopener noreferrer" class="partner-logo-link" title="Інститут психіатрії КНУ імені Тараса Шевченка">
+        <img src="https://ipsycho.knu.ua/wp-content/uploads/2022/02/logo-ua.png" alt="Інститут психіатрії КНУ" class="partner-logo-img logo-knu" referrerpolicy="no-referrer" decoding="async">
+      </a>
+      <a href="https://ipsycho.knu.ua/DAISI_Project/" target="_blank" rel="noopener noreferrer" class="partner-logo-link" title="DAISI Ukraine">
+        <img src="https://ipsycho.knu.ua/wp-content/uploads/2025/12/DAISI-logo_mini.jpg" alt="DAISI Ukraine" class="partner-logo-img logo-daisi" referrerpolicy="no-referrer" decoding="async">
+      </a>
+      <a href="https://www.qmul.ac.uk/" target="_blank" rel="noopener noreferrer" class="partner-logo-link" title="Queen Mary University of London">
+        <img src="https://interstudyconsulting.com/img/university/GB/QM/QMUL-logo-768x205.jpg" alt="Queen Mary University of London" class="partner-logo-img logo-qmul" referrerpolicy="no-referrer" decoding="async">
+      </a>
+      <a href="https://www.lsbu.ac.uk/" target="_blank" rel="noopener noreferrer" class="partner-logo-link" title="London South Bank University">
+        <img src="https://storage-prtl-co.imgix.net/endor/organisations/11506/logos/1754486376_lsbu-logo.png" alt="London South Bank University" class="partner-logo-img logo-lsbu" referrerpolicy="no-referrer" decoding="async">
+      </a>
+      <a href="https://ukrpsychiatry.org/" target="_blank" rel="noopener noreferrer" class="partner-logo-link" title="Асоціація психіатрів України">
+        <img src="https://ukrpsychiatry.org/images/112.png" alt="Асоціація психіатрів України" class="partner-logo-img logo-apu" referrerpolicy="no-referrer" decoding="async">
+      </a>
+      <a href="https://www.nihr.ac.uk/" target="_blank" rel="noopener noreferrer" class="partner-logo-link" title="National Institute for Health Research">
+        <img src="https://ukdri.ac.uk/sites/default/files/styles/wide/public/2024-08/national-institute-for-health-research_logo_outlined_rgb_col-2.jpg?itok=cs23UNAs" alt="National Institute for Health Research" class="partner-logo-img logo-nihr" referrerpolicy="no-referrer" decoding="async">
+      </a>
+    </div>
+
+    <!-- Оновлений копірайт -->
+    <div class="footer-copy">
+      &copy; 2026 DAISI Ukraine
+    </div>
+  </footer>
+
+  <script>
+    // ID Google Таблиці DAISI
+    const SHEET_ID = '1du7HmFj3mOgRtl_je6jQ-404-Xc11Sa7ddyvWFVWLZU';
+    const GID = '0';
+    const JSON_FETCH_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&gid=${GID}`;
+    const HTML_FETCH_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:html&gid=${GID}`;
+
+    // Стан застосунку (початкове сортування від старіших до новіших)
+    let allNewsItems = [];
+    let searchTerm = '';
+    let sortKey = 'id-asc';
+
+    // DOM елементи
+    const mainSearchInput = document.getElementById('mainSearchInput');
+    const floatingSearchInput = document.getElementById('floatingSearchInput');
+    const sortSelect = document.getElementById('sortSelect');
+    const loadingState = document.getElementById('loadingState');
+    const errorState = document.getElementById('errorState');
+    const newsGrid = document.getElementById('newsGrid');
+    const backToTopBtn = document.getElementById('backToTopBtn');
+    const floatingControls = document.getElementById('floatingControls');
+    const retryFetchBtn = document.getElementById('retryFetchBtn');
+    const modalOverlay = document.getElementById('modalOverlay');
+    const modalCloseBtn = document.getElementById('modalCloseBtn');
+    const modalTarget = document.getElementById('modalTarget');
+
+    document.addEventListener('DOMContentLoaded', () => {
+      fetchSheetData();
+      initUIListeners();
+    });
+
+    /**
+     * Покроковий парсер кожного Rich Text фрагмента (Run) із таблиці з підтримкою комбінованих стилів
+     */
+    function parseCellToRichHtml(cellElement, cssStyleMap) {
+      if (!cellElement) return '';
+      let result = '';
+
+      function walk(node, inheritedBold = false, inheritedItalic = false) {
+        if (node.nodeType === Node.TEXT_NODE) {
+          const text = node.textContent;
+          if (!text) return;
+
+          let formatted = escapeHtml(text);
+          // Стилі комбінуються незалежно (може бути одночасно і жирний, і курсив)
+          if (inheritedBold && inheritedItalic) {
+            formatted = `<strong><em>${formatted}</em></strong>`;
+          } else if (inheritedBold) {
+            formatted = `<strong>${formatted}</strong>`;
+          } else if (inheritedItalic) {
+            formatted = `<em>${formatted}</em>`;
+          }
+          result += formatted;
+          return;
+        }
+
+        if (node.nodeType === Node.ELEMENT_NODE) {
+          const tag = node.tagName.toLowerCase();
+          
+          if (tag === 'br') {
+            result += '\n';
+            return;
+          }
+
+          let isBold = inheritedBold;
+          let isItalic = inheritedItalic;
+
+          if (tag === 'b' || tag === 'strong') isBold = true;
+          if (tag === 'i' || tag === 'em') isItalic = true;
+
+          // Перевірка інлайн-стилів
+          const inlineStyle = (node.getAttribute('style') || '').toLowerCase();
+          if (/font-weight\s*:\s*(bold|[789]00)/.test(inlineStyle)) isBold = true;
+          if (/font-style\s*:\s*italic/.test(inlineStyle)) isItalic = true;
+
+          // Перевірка класів зі стилями Google Sheets
+          const classList = node.classList || [];
+          classList.forEach(cls => {
+            if (cssStyleMap && cssStyleMap[cls]) {
+              if (cssStyleMap[cls].isBold) isBold = true;
+              if (cssStyleMap[cls].isItalic) isItalic = true;
+            }
+          });
+
+          node.childNodes.forEach(child => {
+            walk(child, isBold, isItalic);
+          });
+
+          if (tag === 'div' || tag === 'p') {
+            result += '\n';
+          }
+        }
+      }
+
+      walk(cellElement, false, false);
+      return result;
+    }
+
+    /**
+     * Отримання медіа та вихідного Rich Text форматування з HTML-представлення Google Таблиці
+     */
+    async function fetchSheetHtmlAssets() {
+      try {
+        const res = await fetch(HTML_FETCH_URL);
+        if (!res.ok) return { images: {}, richTexts: {} };
+        const htmlText = await res.text();
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(htmlText, 'text/html');
+        const table = doc.querySelector('table');
+        if (!table) return { images: {}, richTexts: {} };
+
+        // Збір класів стилів шрифтів із тегів <style>
+        const cssStyleMap = {};
+        doc.querySelectorAll('style').forEach(st => {
+          const css = st.textContent || '';
+          const ruleRegex = /\.([a-zA-Z0-9_-]+)\s*\{([^}]+)\}/g;
+          let m;
+          while ((m = ruleRegex.exec(css)) !== null) {
+            const cls = m[1];
+            const rules = m[2].toLowerCase();
+            const isBold = /font-weight\s*:\s*(bold|[789]00)/.test(rules);
+            const isItalic = /font-style\s*:\s*italic/.test(rules);
+            cssStyleMap[cls] = { isBold, isItalic };
+          }
+        });
+
+        const rows = Array.from(table.querySelectorAll('tr'));
+        let imgColIdx = 6;
+        let fullTextColIdx = 5;
+        let headerRowFound = -1;
+
+        for (let r = 0; r < Math.min(5, rows.length); r++) {
+          const cells = Array.from(rows[r].querySelectorAll('th, td')).map(c => c.innerText.trim().toLowerCase());
+          const fImgIdx = cells.findIndex(t => t.includes('зображення') || t.includes('фото') || t.includes('image'));
+          if (fImgIdx !== -1) imgColIdx = fImgIdx;
+          
+          const fTextIdx = cells.findIndex(t => t.includes('повний текст') || (t.includes('текст') && !t.includes('короткий')));
+          if (fTextIdx !== -1) fullTextColIdx = fTextIdx;
+
+          if (fImgIdx !== -1 || fTextIdx !== -1) {
+            headerRowFound = r;
+            break;
+          }
+        }
+
+        const startRow = headerRowFound !== -1 ? headerRowFound + 1 : 1;
+        const images = {};
+        const richTexts = {};
+
+        for (let r = startRow; r < rows.length; r++) {
+          const cells = rows[r].querySelectorAll('td');
+          const offset = r - startRow;
+          
+          // Витягуємо зображення
+          if (cells.length > imgColIdx) {
+            const imgTag = cells[imgColIdx].querySelector('img');
+            if (imgTag && imgTag.src) {
+              images[offset] = imgTag.src;
+            }
+          }
+
+          // Послідовна обробка кожного Rich Text фрагмента без пропусків
+          if (cells.length > fullTextColIdx) {
+            const textCell = cells[fullTextColIdx];
+            const parsedRichHtml = parseCellToRichHtml(textCell, cssStyleMap);
+            if (parsedRichHtml) {
+              richTexts[offset] = parsedRichHtml;
+            }
+          }
+        }
+        return { images, richTexts };
+      } catch (e) {
+        console.warn("Не вдалося завантажити HTML-ассети:", e);
+        return { images: {}, richTexts: {} };
+      }
+    }
+
+    /**
+     * Головне завантаження даних
+     */
+    async function fetchSheetData() {
+      showLoading(true);
+      try {
+        const [jsonRes, htmlAssets] = await Promise.all([
+          fetch(JSON_FETCH_URL).then(r => {
+            if (!r.ok) throw new Error("Помилка мережі Google Sheets");
+            return r.text();
+          }),
+          fetchSheetHtmlAssets()
+        ]);
+
+        const rawData = jsonRes.substring(jsonRes.indexOf('({') + 1, jsonRes.lastIndexOf('})') + 1);
+        const parsedJson = JSON.parse(rawData);
+        if (!parsedJson.table || !parsedJson.table.rows) {
+          throw new Error("Некоректна відповідь Google Sheets");
+        }
+
+        processTableData(parsedJson.table, htmlAssets);
+        showLoading(false);
+        updateAppUI();
+      } catch (err) {
+        console.error(err);
+        showLoading(false);
+        showError(true);
+      }
+    }
+
+    function convertToUkr(day, month, year) {
+      const ukrMonths = [
+        "січня", "лютого", "березня", "квітня", "травня", "червня",
+        "липня", "серпня", "вересня", "жовтня", "листопада", "грудня"
+      ];
+      if (month >= 1 && month <= 12) {
+        return `${day} ${ukrMonths[month - 1]} ${year}`;
+      }
+      return `${day}.${month}.${year}`;
+    }
+
+    function formatDateToUkrainian(dateStr) {
+      if (!dateStr || dateStr === "—" || dateStr.trim() === "") return "—";
+      let cleanStr = dateStr.trim();
+      if (cleanStr.startsWith("Date(") && cleanStr.endsWith(")")) {
+        try {
+          const parts = cleanStr.slice(5, -1).split(',');
+          const year = parseInt(parts[0], 10);
+          const month = parseInt(parts[1], 10) + 1;
+          const day = parseInt(parts[2], 10);
+          return convertToUkr(day, month, year);
+        } catch (e) {}
+      }
+      const dmyRegex = /^(\d{1,2})[./-](\d{1,2})[./-](\d{4}|\d{2})$/;
+      const matchDmy = cleanStr.match(dmyRegex);
+      if (matchDmy) {
+        let day = parseInt(matchDmy[1], 10);
+        let month = parseInt(matchDmy[2], 10);
+        let year = parseInt(matchDmy[3], 10);
+        if (year < 100) year += 2000;
+        return convertToUkr(day, month, year);
+      }
+      const ymdRegex = /^(\d{4})[./-](\d{1,2})[./-](\d{1,2})$/;
+      const matchYmd = cleanStr.match(ymdRegex);
+      if (matchYmd) {
+        let year = parseInt(matchYmd[1], 10);
+        let month = parseInt(matchYmd[2], 10);
+        let day = parseInt(matchYmd[3], 10);
+        return convertToUkr(day, month, year);
+      }
+      return dateStr;
+    }
+
+    function escapeHtml(text) {
+      if (!text) return '';
+      return text
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    /**
+     * Збереження наявних тегів <strong>, <em> та створення клікабельних посилань
+     */
+    function processInlineFormatting(text) {
+      if (!text) return '';
+      
+      const tokens = [];
+      let tokenized = text.replace(/<\/?(strong|b|em|i|u|a)(\s+[^>]*)?>/gi, (match) => {
+        let norm = match;
+        const lower = match.toLowerCase();
+        if (lower.startsWith('<b ') || lower === '<b>') norm = '<strong>';
+        else if (lower === '</b>') norm = '</strong>';
+        else if (lower.startsWith('<i ') || lower === '<i>') norm = '<em>';
+        else if (lower === '</i>') norm = '</em>';
+        const key = `___TOKEN_${tokens.length}___`;
+        tokens.push(norm);
+        return key;
+      });
+
+      tokenized = tokenized
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+
+      tokenized = tokenized.replace(/(https?:\/\/[^\s<]+[^\s<.,!?:;)"'])/g, (url) => {
+        return `<a href="${url}" target="_blank" rel="noopener noreferrer" class="news-inline-link">${url}</a>`;
+      });
+
+      tokens.forEach((tag, idx) => {
+        tokenized = tokenized.replace(`___TOKEN_${idx}___`, tag);
+      });
+
+      return tokenized;
+    }
+
+    /**
+     * Повний парсер статті: надійно зберігає перше запитання, жирний шрифт, курсив автора, списки та абзаци
+     */
+    function formatFullArticleText(rawText) {
+      if (!rawText) return '';
+      let clean = rawText.replace(/\r\n/g, '\n').replace(/\r/g, '\n').trim();
+
+      // Конвертація Markdown стилів у валідний HTML
+      clean = clean.replace(/\*\*\*([^*]+)\*\*\*/g, '<strong><em>$1</em></strong>');
+      clean = clean.replace(/\*\*\_([^_]+)\_\*\*/g, '<strong><em>$1</em></strong>');
+      clean = clean.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+      clean = clean.replace(/<b>(.*?)<\/b>/gi, '<strong>$1</strong>');
+
+      const lines = clean.split('\n');
+      let html = '';
+
+      lines.forEach(line => {
+        let trimmed = line.trim();
+        if (!trimmed) return;
+
+        // Пункти списків: 🔹, 🔷, •, -, *
+        const isBullet = /^[🔹🔷•\-\*▪️]\s*(.+)/.test(trimmed);
+        if (isBullet) {
+          const formattedLine = processInlineFormatting(trimmed);
+          html += `<div class="article-list-item">${formattedLine}</div>`;
+          return;
+        }
+
+        // Фінальний підпис автора (зберігає і bold, і italic комбіновано)
+        const isAuthorByline = /^підготував|^підготувала|^автор|^фото/i.test(trimmed) && trimmed.length < 130;
+        if (isAuthorByline) {
+          let bylineFormatted = processInlineFormatting(trimmed);
+          bylineFormatted = bylineFormatted.replace(/<\/?(strong|b|em|i)>/gi, '');
+          html += `<p class="modal-paragraph article-byline-para"><strong><em>${bylineFormatted}</em></strong></p>`;
+          return;
+        }
+
+        // Перевірка запитань інтерв'ю (включно з репліками "Розкажіть про себе...", репліками з тире, знаками питання)
+        const isDashQuestion = /^[–—\-]\s*.+[\?:]$/i.test(trimmed);
+        const endsWithQuestion = trimmed.endsWith('?') && trimmed.length < 320;
+        const isImperativeQuestion = /^(розкажіть|поясніть|опишіть|поділіться)\b/i.test(trimmed) && trimmed.length < 250;
+        const isInterviewerPrompt = /^(пані|пане)\s+[а-яіїєґa-z]+,\s+розкажіть/i.test(trimmed) && trimmed.length < 300;
+        const isShortHeadingColon = trimmed.length < 110 && trimmed.endsWith(':') && !trimmed.includes('<br>');
+
+        let formattedLine = processInlineFormatting(trimmed);
+
+        if (isDashQuestion || endsWithQuestion || isImperativeQuestion || isInterviewerPrompt || isShortHeadingColon) {
+          if (!formattedLine.startsWith('<strong>') && !formattedLine.startsWith('<h4')) {
+            formattedLine = `<strong>${formattedLine}</strong>`;
+          }
+          html += `<p class="modal-paragraph modal-question-para">${formattedLine}</p>`;
+          return;
+        }
+
+        html += `<p class="modal-paragraph">${formattedLine}</p>`;
+      });
+
+      return html;
+    }
+
+    /**
+     * Розумне вилучення URL картинок із підтримкою мобільних браузерів та HTTPS
+     */
+    function extractImageUrl(rawImage) {
+      if (!rawImage || typeof rawImage !== 'string') return '';
+      let str = rawImage.trim();
+
+      const formulaMatch = str.match(/=IMAGE\s*\(\s*["']([^"']+)["']/i);
+      if (formulaMatch) {
+        str = formulaMatch[1];
+      }
+
+      const urlMatch = str.match(/(https?:\/\/[^\s"'<>]+)/);
+      if (urlMatch) {
+        str = urlMatch[1];
+      }
+
+      // Перетворення Google Drive лінків у прямі оптимізовані прев'ю
+      if (str.includes('drive.google.com')) {
+        const fileIdMatch = str.match(/\/file\/d\/([a-zA-Z0-9_-]+)/) || str.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+        if (fileIdMatch && fileIdMatch[1]) {
+          return `https://drive.google.com/thumbnail?id=${fileIdMatch[1]}&sz=w1200`;
+        }
+      }
+
+      if (str.startsWith('http://') && (str.includes('google') || str.includes('ibb.co') || str.includes('imgur') || str.includes('knu.ua'))) {
+        str = str.replace('http://', 'https://');
+      }
+
+      return str.startsWith('http') ? str : '';
+    }
+
+    function extractUrlAndTitle(rawLink) {
+      let url = "";
+      let mediaTitle = "";
+      if (!rawLink || typeof rawLink !== 'string') return { url, mediaTitle };
+      const cleanLink = rawLink.trim();
+
+      const urlMatch = cleanLink.match(/(https?:\/\/[^\s]+)/);
+      if (urlMatch) {
+        url = urlMatch[1];
+        let openCount = (url.match(/\(/g) || []).length;
+        let closeCount = (url.match(/\)/g) || []).length;
+        while (closeCount > openCount && url.endsWith(')')) {
+          url = url.slice(0, -1);
+          closeCount--;
+        }
+        const remnant = cleanLink.replace(url, '').trim();
+        if (remnant) {
+          const titleMatch = remnant.match(/^\(([^)]+)\)$/) || remnant.match(/\(([^)]+)\)/);
+          mediaTitle = titleMatch ? titleMatch[1] : remnant;
+        }
+      } else if (cleanLink.startsWith('http://') || cleanLink.startsWith('https://')) {
+        url = cleanLink;
+      }
+
+      if (url && !mediaTitle) {
+        try {
+          mediaTitle = new URL(url).hostname.replace('www.', '');
+        } catch (e) {
+          mediaTitle = "Джерело";
+        }
+      }
+      return { url, mediaTitle };
+    }
+
+    /**
+     * Повна ізоляція: Лід (lead) та Повний текст (fullText) суворо розділені
+     */
+    function processTableData(jsonTable, htmlAssets = { images: {}, richTexts: {} }) {
+      const rows = jsonTable.rows || [];
+      if (rows.length === 0) return;
+
+      const cols = jsonTable.cols || [];
+      const colLabels = cols.map(c => c && c.label ? String(c.label).trim() : "");
+      
+      const colsHaveHeaders = colLabels.some(l => {
+        const s = l.toLowerCase();
+        return s.includes('заголовок') || s.includes('лід') || s.includes('повний текст') || s.includes('зображення');
+      });
+
+      let headerSource = colLabels;
+      let dataRowsStartIndex = 0;
+
+      if (!colsHaveHeaders) {
+        for (let r = 0; r < Math.min(6, rows.length); r++) {
+          const row = rows[r];
+          if (!row || !row.c) continue;
+          const rowTexts = row.c.map(cell => cell && cell.v !== null && cell.v !== undefined ? String(cell.v).trim().toLowerCase() : '');
+          if (rowTexts.some(t => t.includes('заголовок') || t.includes('лід') || t.includes('повний текст') || t.includes('зображення'))) {
+            headerSource = row.c.map(cell => cell && cell.v !== null && cell.v !== undefined ? String(cell.v).trim() : '');
+            dataRowsStartIndex = r + 1;
+            break;
+          }
+        }
+      }
+
+      let idxId = -1;
+      let idxDate = -1;
+      let idxTitle = -1;
+      let idxLead = -1;
+      let idxFullText = -1;
+      let idxImage = -1;
+      let idxLink = -1;
+
+      headerSource.forEach((h, index) => {
+        const hLower = h.toLowerCase().trim();
+        if (hLower.includes('№') || hLower.includes('id') || hLower === 'n') {
+          idxId = index;
+        } else if (hLower.includes('внесено') || hLower.includes('дата') || hLower.includes('date')) {
+          idxDate = index;
+        } else if (hLower.includes('заголовок') || hLower.includes('title') || hLower === 'назва') {
+          idxTitle = index;
+        } else if (hLower === 'лід' || hLower.includes('lead') || hLower.includes('короткий опис') || hLower.includes('анонс')) {
+          idxLead = index;
+        } else if (hLower.includes('повний текст') || hLower.includes('повний') || (hLower.includes('текст новини') && !hLower.includes('короткий'))) {
+          idxFullText = index;
+        } else if (hLower.includes('зображення') || hLower.includes('фото') || hLower.includes('image')) {
+          idxImage = index;
+        } else if (hLower.includes('посилання') || hLower.includes('link') || hLower.includes('url')) {
+          idxLink = index;
+        }
+      });
+
+      // Позиційні дефолтні індекси
+      if (idxId === -1) idxId = 1;
+      if (idxDate === -1) idxDate = 2;
+      if (idxTitle === -1) idxTitle = 3;
+      if (idxLead === -1) idxLead = 4;
+      if (idxFullText === -1) idxFullText = 5;
+      if (idxImage === -1) idxImage = 6;
+      if (idxLink === -1) idxLink = 7;
+
+      allNewsItems = [];
+
+      for (let i = dataRowsStartIndex; i < rows.length; i++) {
+        const r = rows[i];
+        if (!r || !r.c) continue;
+
+        const getVal = (idx) => {
+          if (idx < 0 || idx >= r.c.length) return "";
+          const cell = r.c[idx];
+          if (!cell) return "";
+          if (cell.v !== null && cell.v !== undefined && String(cell.v).trim() !== "") {
+            return String(cell.v).trim();
+          }
+          if (cell.f !== null && cell.f !== undefined) {
+            return String(cell.f).trim();
+          }
+          return "";
+        };
+
+        const id = getVal(idxId);
+        const rawDate = getVal(idxDate);
+        const date = formatDateToUkrainian(rawDate);
+        const rawTitle = getVal(idxTitle);
+        const rawLead = getVal(idxLead);
+        const rawImage = getVal(idxImage);
+        const rawLink = getVal(idxLink);
+
+        const dataRowOffset = i - dataRowsStartIndex;
+        
+        const rawFullText = (htmlAssets.richTexts && htmlAssets.richTexts[dataRowOffset]) 
+          ? htmlAssets.richTexts[dataRowOffset] 
+          : getVal(idxFullText);
+
+        if (!rawTitle && !rawLead && !rawFullText && !rawImage && !rawLink && !id) continue;
+
+        const title = rawTitle || "Новина проєкту";
+        const lead = rawLead; 
+        const fullText = rawFullText;
+
+        let imageUrl = extractImageUrl(rawImage);
+        if (!imageUrl && htmlAssets.images && htmlAssets.images[dataRowOffset]) {
+          imageUrl = extractImageUrl(htmlAssets.images[dataRowOffset]);
+        }
+
+        const { url, mediaTitle } = extractUrlAndTitle(rawLink);
+
+        let youtubeId = "";
+        if (url && (url.includes("youtube.com") || url.includes("youtu.be"))) {
+          const ytRegex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\s]{11})/;
+          const match = url.match(ytRegex);
+          if (match) youtubeId = match[1];
+        }
+
+        allNewsItems.push({
+          id: id || String(allNewsItems.length + 1),
+          sheetRow: i + 1,
+          date: date || "—",
+          rawDate: rawDate,
+          title: title,
+          lead: lead,
+          fullText: fullText,
+          imageUrl: imageUrl,
+          rawLink: rawLink,
+          url: url,
+          mediaTitle: mediaTitle,
+          youtubeId: youtubeId
+        });
+      }
+    }
+
+    function showLoading(active) {
+      loadingState.style.display = active ? 'flex' : 'none';
+      if (active) {
+        newsGrid.innerHTML = '';
+        errorState.style.display = 'none';
+      }
+    }
+
+    function showError(active) {
+      errorState.style.display = active ? 'flex' : 'none';
+    }
+
+    function initUIListeners() {
+      mainSearchInput.addEventListener('input', (e) => {
+        searchTerm = e.target.value;
+        floatingSearchInput.value = searchTerm;
+        updateAppUI();
+      });
+      floatingSearchInput.addEventListener('input', (e) => {
+        searchTerm = e.target.value;
+        mainSearchInput.value = searchTerm;
+        updateAppUI();
+      });
+
+      sortSelect.addEventListener('change', (e) => {
+        sortKey = e.target.value;
+        updateAppUI();
+      });
+
+      retryFetchBtn.addEventListener('click', () => {
+        location.reload();
+      });
+
+      window.addEventListener('scroll', () => {
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        document.getElementById('progress-bar').style.width = scrolled + '%';
+        if (winScroll > 250) {
+          floatingControls.classList.add('visible');
+        } else {
+          floatingControls.classList.remove('visible');
+        }
+      });
+
+      backToTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      modalCloseBtn.addEventListener('click', closeModal);
+      modalOverlay.addEventListener('click', (e) => {
+        if (e.target === modalOverlay) closeModal();
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeModal();
+      });
+    }
+
+    function parseDateString(dateStr) {
+      if (!dateStr || dateStr === "—") return new Date(0);
+      const ukrMonths = [
+        "січня", "лютого", "березня", "квітня", "травня", "червня",
+        "липня", "серпня", "вересня", "жовтня", "листопада", "грудня"
+      ];
+      const parts = dateStr.split(' ');
+      if (parts.length === 3) {
+        const day = parseInt(parts[0], 10);
+        const monthStr = parts[1].toLowerCase();
+        const year = parseInt(parts[2], 10);
+        const monthIndex = ukrMonths.indexOf(monthStr);
+        if (monthIndex !== -1 && !isNaN(day) && !isNaN(year)) {
+          return new Date(year, monthIndex, day);
+        }
+      }
+      return new Date(0);
+    }
+
+    /**
+     * Сортування за замовчуванням за зростанням номерів / рядків (№1 -> №2 -> №3)
+     */
+    function getProcessedDataset() {
+      let data = [...allNewsItems];
+
+      if (searchTerm) {
+        const term = searchTerm.toLowerCase();
+        data = data.filter(item => {
+          return item.title.toLowerCase().includes(term) ||
+            item.lead.toLowerCase().includes(term) ||
+            item.fullText.toLowerCase().includes(term) ||
+            item.date.toLowerCase().includes(term) ||
+            item.mediaTitle.toLowerCase().includes(term);
+        });
+      }
+
+      if (sortKey === 'id-asc') {
+        data.sort((a, b) => {
+          const numA = parseInt(a.id, 10);
+          const numB = parseInt(b.id, 10);
+          if (!isNaN(numA) && !isNaN(numB)) {
+            return numA - numB;
+          }
+          return a.sheetRow - b.sheetRow;
+        });
+      } else if (sortKey === 'id-desc') {
+        data.sort((a, b) => {
+          const numA = parseInt(a.id, 10);
+          const numB = parseInt(b.id, 10);
+          if (!isNaN(numA) && !isNaN(numB)) {
+            return numB - numA;
+          }
+          return b.sheetRow - a.sheetRow;
+        });
+      } else if (sortKey === 'date-desc') {
+        data.sort((a, b) => parseDateString(b.date) - parseDateString(a.date));
+      } else if (sortKey === 'date-asc') {
+        data.sort((a, b) => parseDateString(a.date) - parseDateString(b.date));
+      }
+
+      return data;
+    }
+
+    function updateAppUI() {
+      const activeData = getProcessedDataset();
+
+      if (activeData.length === 0) {
+        newsGrid.innerHTML = `
+          <div class="no-results" style="width: 100%;">
+            <i data-lucide="search-slash" style="width: 44px; height: 44px; opacity: 0.5; margin-bottom: 12px; color: var(--text-muted);"></i>
+            <h3>Новин не знайдено</h3>
+            <p>Спробуйте змінити пошуковий запит.</p>
+          </div>
+        `;
+        lucide.createIcons();
+        return;
+      }
+
+      renderNewsFeed(activeData);
+      lucide.createIcons();
+    }
+
+    function playYoutubeInline(videoId, containerId) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+      container.innerHTML = `
+        <div class="iframe-wrapper">
+          <iframe 
+            src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen>
+          </iframe>
+        </div>
+      `;
+    }
+
+    /**
+     * Рендеринг вертикальної стрічки новин (горизонтальні широкі картки з повною адаптивністю)
+     * Картка показує ВИКЛЮЧНО: Зображення + Заголовок + Лід (до 12 рядків) + «Читати повністю →»
+     */
+    function renderNewsFeed(items) {
+      newsGrid.innerHTML = '';
+
+      items.forEach(item => {
+        let mediaLeftHtml = '';
+        const hasVideo = Boolean(item.youtubeId);
+        const hasImage = Boolean(item.imageUrl);
+
+        if (hasVideo) {
+          mediaLeftHtml = `
+            <div class="news-card-media-wrap has-video">
+              <div class="news-media-thumb-container">
+                <img 
+                  src="https://img.youtube.com/vi/${item.youtubeId}/hqdefault.jpg" 
+                  alt="${escapeHtml(item.title)}" 
+                  loading="lazy" 
+                  decoding="async"
+                  class="news-card-thumb-img"
+                >
+                <div class="media-video-overlay">
+                  <div class="media-play-pill">
+                    <i data-lucide="play" style="width: 20px; height: 20px; margin-left: 2px;"></i>
+                  </div>
+                </div>
+                ${item.mediaTitle ? `<span class="media-caption-badge">${escapeHtml(item.mediaTitle)}</span>` : ''}
+              </div>
+            </div>
+          `;
+        } else if (hasImage) {
+          mediaLeftHtml = `
+            <div class="news-card-media-wrap">
+              <div class="news-media-thumb-container">
+                <img 
+                  src="${item.imageUrl}" 
+                  alt="${escapeHtml(item.title)}" 
+                  loading="lazy" 
+                  decoding="async"
+                  referrerpolicy="no-referrer"
+                  class="news-card-thumb-img" 
+                  onerror="this.closest('.news-card-media-wrap').style.display='none'"
+                >
+              </div>
+            </div>
+          `;
+        }
+
+        // Лід передається повністю і обмежується 12 рядками через CSS line-clamp
+        const cleanLead = item.lead ? escapeHtml(item.lead.trim()) : '';
+
+        const cardHtml = `
+          <article class="news-card" onclick="openModal('${item.id}')">
+            ${mediaLeftHtml}
+            <div class="news-card-body-wrap">
+              <div>
+                <div class="news-card-meta-top">
+                  <span class="badge">
+                    <i data-lucide="bookmark" style="width: 11px; height: 11px;"></i>
+                    #DAISIUkraine
+                  </span>
+                  <span class="news-card-meta-text">№ ${item.id} • ${item.date}</span>
+                </div>
+
+                <h2 class="news-card-title">${escapeHtml(item.title)}</h2>
+                <div class="news-card-divider"></div>
+
+                ${cleanLead ? `<p class="news-card-excerpt">${cleanLead}</p>` : ''}
+              </div>
+
+              <div class="news-card-footer">
+                <span class="read-more-btn">
+                  <span>Читати повністю</span>
+                  <i data-lucide="arrow-right"></i>
+                </span>
+              </div>
+            </div>
+          </article>
+        `;
+
+        newsGrid.insertAdjacentHTML('beforeend', cardHtml);
+      });
+    }
+
+    /**
+     * Відкриття повного матеріалу в модальному вікні:
+     * Відображається: Зображення (оригінальні пропорції) + Заголовок + ТІЛЬКИ Повний текст новини + Джерело
+     */
+    function openModal(itemId) {
+      const item = allNewsItems.find(i => i.id === itemId);
+      if (!item) return;
+      
+      const imageHtml = item.imageUrl ? `
+        <div class="modal-news-img-wrap">
+          <img 
+            src="${item.imageUrl}" 
+            alt="${escapeHtml(item.title)}" 
+            class="modal-news-img" 
+            decoding="async" 
+            referrerpolicy="no-referrer"
+          >
+        </div>
+      ` : '';
+
+      let mediaHtml = '';
+      if (item.youtubeId) {
+        mediaHtml = `
+          <div style="margin-top: 15px;">
+            <div class="iframe-wrapper">
+              <iframe 
+                src="https://www.youtube.com/embed/${item.youtubeId}?autoplay=0&rel=0" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen>
+              </iframe>
+            </div>
+          </div>
+        `;
+      } else if (item.url) {
+        mediaHtml = `
+          <div style="margin-top: 15px;">
+            <a href="${item.url}" target="_blank" class="generic-link-preview" style="padding: 10px 14px;">
+              <div class="link-icon-container" style="width: 32px; height: 32px;">
+                <i data-lucide="external-link"></i>
+              </div>
+              <div class="link-details">
+                <span class="link-title" style="font-size: 0.85rem;">${item.mediaTitle || 'Першоджерело новини'}</span>
+                <span class="link-domain">${item.url}</span>
+              </div>
+            </a>
+          </div>
+        `;
+      }
+
+      // Тільки повний текст статті з відповідної колонки
+      const formattedArticleBody = item.fullText ? formatFullArticleText(item.fullText) : '';
+
+      modalTarget.innerHTML = `
+        ${imageHtml}
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+          <span class="badge">#DAISIUkraine</span>
+          <div class="news-card-meta-text">
+            <span>№ ${item.id} • ${item.date}</span>
+          </div>
+        </div>
+
+        <h1 class="modal-title">${escapeHtml(item.title)}</h1>
+        <div class="news-card-divider" style="width: 45px; height: 4px; margin-bottom: 16px;"></div>
+
+        ${formattedArticleBody ? `<div class="modal-paragraphs-block">${formattedArticleBody}</div>` : ''}
+
+        ${mediaHtml}
+      `;
+
+      modalOverlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      lucide.createIcons();
+    }
+
+    function closeModal() {
+      modalOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+      modalTarget.innerHTML = '';
+    }
+  </script>
+</body>
+</html>
