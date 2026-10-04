@@ -133,7 +133,7 @@
       margin: 0;
       max-width: 580px;
     }
-    /* Компактне пошукове поле, пропорційне селектору сортування */
+    /* Компактне пошукове поле, пропорційне селекторам */
     .header-search {
       flex: 0 0 auto;
       width: clamp(260px, 26vw, 320px);
@@ -146,11 +146,11 @@
     }
     .search-input {
       width: 100%;
-      min-height: 42px; /* Узгоджена висота з селектором сортування */
+      min-height: 42px;
       padding: 8px 16px 8px 38px;
       background-color: var(--bg-card);
       border: 1px solid var(--border-color);
-      border-radius: 30px; /* Єдиний радіус скруглення */
+      border-radius: 30px;
       color: var(--text-main);
       font-family: var(--font-family);
       font-size: 0.8rem;
@@ -173,7 +173,7 @@
       height: 15px;
     }
 
-    /* Панель керування: Сортування вирівняно по лівому краю */
+    /* Панель керування: Сортування та Місяць вирівняно ліворуч */
     .controls-card {
       background-color: var(--bg-card);
       border: 1px solid var(--border-color);
@@ -182,36 +182,42 @@
       margin-bottom: 22px;
       box-shadow: 0 4px 15px rgba(11, 25, 44, 0.02);
       display: flex;
-      justify-content: flex-start; /* Вирівнювання строго ліворуч */
+      justify-content: flex-start;
       align-items: center;
       max-width: 1200px;
       margin-left: auto;
       margin-right: auto;
       width: 100%;
     }
-    .sort-group {
+    .controls-left-group {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 20px;
       flex-wrap: wrap;
+    }
+    .control-item-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
     .control-label {
       font-size: 0.78rem;
       font-weight: 700;
       color: var(--text-muted);
       letter-spacing: 0.5px;
+      white-space: nowrap;
     }
-    .sort-select-wrapper {
+    .custom-select-wrapper {
       position: relative;
       display: flex;
       align-items: center;
     }
-    .sort-select {
+    .custom-select {
       appearance: none;
       background-color: var(--bg-card);
       border: 1px solid var(--border-color);
       border-radius: 30px;
-      padding: 8px 32px 8px 16px;
+      padding: 8px 34px 8px 16px;
       min-height: 42px;
       font-family: var(--font-family);
       font-size: 0.8rem;
@@ -221,8 +227,9 @@
       outline: none;
       transition: all 0.2s ease;
       touch-action: manipulation;
+      white-space: nowrap;
     }
-    .sort-select:focus {
+    .custom-select:focus {
       border-color: var(--primary-red);
     }
     .sort-icon {
@@ -396,14 +403,14 @@
       border-radius: 2px;
       margin-bottom: 12px;
     }
-    /* Видимий ліміт ліду збільшено до 12 рядків */
+    /* Видимий ліміт ліду до 12 рядків */
     .news-card-excerpt {
       font-size: clamp(0.84rem, 2.2vw, 0.88rem);
       line-height: 1.65;
       color: #334155;
       margin-bottom: 16px;
       display: -webkit-box;
-      -webkit-line-clamp: 12; /* Збільшено до 12 рядків */
+      -webkit-line-clamp: 12;
       -webkit-box-orient: vertical;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -433,7 +440,7 @@
       cursor: pointer;
       transition: gap 0.2s ease, color 0.2s ease;
       padding: 8px 0;
-      min-height: 44px; /* Зручний таргет для пальця */
+      min-height: 44px;
     }
     .news-card:hover .read-more-btn {
       gap: 9px;
@@ -489,7 +496,7 @@
       right: 10px;
       background: rgba(255, 255, 255, 0.95);
       border: 1px solid var(--border-color);
-      width: 44px; /* Сенсорний таргет 44x44px */
+      width: 44px;
       height: 44px;
       border-radius: 50%;
       display: flex;
@@ -513,7 +520,7 @@
       -webkit-overflow-scrolling: touch;
     }
 
-    /* Збереження вихідних пропорцій фото (центрується, без штучного розтягування) */
+    /* Збереження вихідних пропорцій фото у модальному вікні */
     .modal-news-img-wrap {
       width: 100%;
       border-radius: 12px;
@@ -545,7 +552,7 @@
       padding-right: 30px;
     }
 
-    /* СТИЛІЗАЦІЯ ПОВНОГО ТЕКСТУ СТАТТІ: BOLD, ITALIC, СПИСКИ, ЗАПИТАННЯ */
+    /* СТИЛІЗАЦІЯ ПОВНОГО ТЕКСТУ: BOLD, ITALIC, СПИСКИ, ЗАПИТАННЯ */
     .modal-paragraphs-block {
       display: flex;
       flex-direction: column;
@@ -979,7 +986,6 @@
        АДАПТИВНІ БРЕЙКПОІНТИ (1024px, 768px, 480px, 375px)
        ============================================================== */
 
-    /* Планшети та вузькі десктопи (<= 1024px) */
     @media (max-width: 1024px) {
       .header-container {
         gap: 14px;
@@ -994,7 +1000,6 @@
       }
     }
 
-    /* Мобільні пристрої та планшети (<= 768px) */
     @media (max-width: 768px) {
       body {
         padding: 8px 10px 40px;
@@ -1009,7 +1014,6 @@
         gap: 12px;
       }
 
-      /* Прибрано vertical flex-basis, що створював пустий простір під описом */
       .header-branding {
         flex: 0 0 auto;
         max-width: 100%;
@@ -1018,26 +1022,32 @@
       .header-search {
         flex: 0 0 auto;
         width: 100%;
-        max-width: 320px; /* Компактно і пропорційно на мобільних */
+        max-width: 320px;
         margin-left: 0;
         margin-top: 4px;
       }
 
       .controls-card {
-        padding: 10px 14px;
-        justify-content: flex-start;
+        padding: 12px 14px;
       }
-      .sort-group {
+      .controls-left-group {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
         width: 100%;
-        justify-content: flex-start;
       }
-      .sort-select-wrapper {
+      .control-item-wrapper {
+        width: 100%;
+        justify-content: space-between;
+      }
+      .custom-select-wrapper {
         flex: 1 1 auto;
-        max-width: 280px;
-      }
-      .sort-select {
+        max-width: 240px;
         width: 100%;
-        min-height: 42px;
+      }
+      .custom-select {
+        width: 100%;
+        min-height: 44px;
       }
 
       /* КАРТКА НА МОБІЛЬНОМУ: Зображення зверху, 100% ширина, збереження пропорцій */
@@ -1119,7 +1129,7 @@
       }
     }
 
-    /* Компактні телефони (<= 480px, включаючи 375px та 390px) */
+    /* Компактні телефони (<= 480px) */
     @media (max-width: 480px) {
       body {
         padding: 6px 8px 50px;
@@ -1135,6 +1145,14 @@
         height: 50px;
       }
       .header-search {
+        max-width: 100%;
+      }
+      .control-item-wrapper {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+      }
+      .custom-select-wrapper {
         max-width: 100%;
       }
       .news-card-body-wrap {
@@ -1178,7 +1196,7 @@
         </p>
       </div>
 
-      <!-- Пошук (компактний та пропорційний до сортування) -->
+      <!-- Пошук (компактний та пропорційний) -->
       <div class="header-search">
         <div class="search-container">
           <i data-lucide="search" class="search-icon"></i>
@@ -1189,18 +1207,32 @@
   </header>
 
   <main>
-    <!-- Панель керування: Сортування вирівняно по лівому краю -->
+    <!-- Панель керування: Сортування та Вибір місяця (вирівняно ліворуч) -->
     <div class="controls-card">
-      <div class="sort-group">
-        <span class="control-label" for="sortSelect">Сортувати:</span>
-        <div class="sort-select-wrapper">
-          <select id="sortSelect" class="sort-select">
-            <option value="id-asc" selected>Перші додані (№ ↑)</option>
-            <option value="id-desc">Останні додані (№ ↓)</option>
-            <option value="date-asc">Датою внесення (Старі спочатку)</option>
-            <option value="date-desc">Датою внесення (Нові спочатку)</option>
-          </select>
-          <i data-lucide="chevron-down" class="sort-icon"></i>
+      <div class="controls-left-group">
+        <!-- 1. Сортування за замовчуванням: Найновіші спочатку -->
+        <div class="control-item-wrapper">
+          <span class="control-label" for="sortSelect">Сортувати:</span>
+          <div class="custom-select-wrapper">
+            <select id="sortSelect" class="custom-select">
+              <option value="date-desc" selected>Найновіші</option>
+              <option value="date-asc">Найстаріші</option>
+              <option value="id-desc">За номером (№ ↓)</option>
+              <option value="id-asc">За номером (№ ↑)</option>
+            </select>
+            <i data-lucide="chevron-down" class="sort-icon"></i>
+          </div>
+        </div>
+
+        <!-- 2. Динамічний випадний список місяців (згенерований із таблиці від найновіших до найстаріших) -->
+        <div class="control-item-wrapper">
+          <span class="control-label" for="monthSelect">Місяць:</span>
+          <div class="custom-select-wrapper">
+            <select id="monthSelect" class="custom-select">
+              <option value="all" selected>Усі місяці</option>
+            </select>
+            <i data-lucide="chevron-down" class="sort-icon"></i>
+          </div>
         </div>
       </div>
     </div>
@@ -1298,7 +1330,6 @@
       </a>
     </div>
 
-    <!-- Оновлений копірайт -->
     <div class="footer-copy">
       &copy; 2026 DAISI Ukraine
     </div>
@@ -1311,15 +1342,17 @@
     const JSON_FETCH_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&gid=${GID}`;
     const HTML_FETCH_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:html&gid=${GID}`;
 
-    // Стан застосунку (початкове сортування від старіших до новіших)
+    // Стан застосунку: сортування від найновіших за замовчуванням
     let allNewsItems = [];
     let searchTerm = '';
-    let sortKey = 'id-asc';
+    let sortKey = 'date-desc';
+    let selectedMonth = 'all';
 
     // DOM елементи
     const mainSearchInput = document.getElementById('mainSearchInput');
     const floatingSearchInput = document.getElementById('floatingSearchInput');
     const sortSelect = document.getElementById('sortSelect');
+    const monthSelect = document.getElementById('monthSelect');
     const loadingState = document.getElementById('loadingState');
     const errorState = document.getElementById('errorState');
     const newsGrid = document.getElementById('newsGrid');
@@ -1524,7 +1557,7 @@
 
     function formatDateToUkrainian(dateStr) {
       if (!dateStr || dateStr === "—" || dateStr.trim() === "") return "—";
-      let cleanStr = dateStr.trim();
+      let cleanStr = String(dateStr).trim();
       if (cleanStr.startsWith("Date(") && cleanStr.endsWith(")")) {
         try {
           const parts = cleanStr.slice(5, -1).split(',');
@@ -1556,12 +1589,91 @@
 
     function escapeHtml(text) {
       if (!text) return '';
-      return text
+      return String(text)
         .replace(/&/g, '&amp;')
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;')
         .replace(/"/g, '&quot;')
         .replace(/'/g, '&#039;');
+    }
+
+    /**
+     * Точний парсер дати в об'єкт Date для сортування та виділення місяця
+     */
+    function parseDateString(dateStr) {
+      if (!dateStr || dateStr === "—") return new Date(0);
+      let cleanStr = String(dateStr).trim();
+
+      if (cleanStr.startsWith("Date(") && cleanStr.endsWith(")")) {
+        try {
+          const parts = cleanStr.slice(5, -1).split(',');
+          return new Date(parseInt(parts[0], 10), parseInt(parts[1], 10), parseInt(parts[2], 10));
+        } catch (e) {}
+      }
+
+      const ukrMonths = [
+        "січня", "лютого", "березня", "квітня", "травня", "червня",
+        "липня", "серпня", "вересня", "жовтня", "листопада", "грудня"
+      ];
+      const parts = cleanStr.split(' ');
+      if (parts.length === 3) {
+        const day = parseInt(parts[0], 10);
+        const monthStr = parts[1].toLowerCase();
+        const year = parseInt(parts[2], 10);
+        const monthIndex = ukrMonths.indexOf(monthStr);
+        if (monthIndex !== -1 && !isNaN(day) && !isNaN(year)) {
+          return new Date(year, monthIndex, day);
+        }
+      }
+
+      const partsDot = cleanStr.split('.');
+      if (partsDot.length === 3) {
+        const day = parseInt(partsDot[0], 10);
+        const month = parseInt(partsDot[1], 10) - 1;
+        const year = parseInt(partsDot[2], 10);
+        return new Date(year, month, day);
+      }
+
+      const partsDash = cleanStr.split('-');
+      if (partsDash.length === 3 && partsDash[0].length === 4) {
+        return new Date(parseInt(partsDash[0], 10), parseInt(partsDash[1], 10) - 1, parseInt(partsDash[2], 10));
+      }
+
+      const parsed = new Date(cleanStr);
+      return isNaN(parsed.getTime()) ? new Date(0) : parsed;
+    }
+
+    /**
+     * Динамічне наповнення випадаючого списку місяців на основі реальних опублікованих дат
+     */
+    function updateMonthDropdown(items) {
+      if (!monthSelect) return;
+
+      const monthMap = new Map();
+      items.forEach(item => {
+        if (item.monthKey && item.monthLabel && !monthMap.has(item.monthKey)) {
+          monthMap.set(item.monthKey, item.monthLabel);
+        }
+      });
+
+      // Сортування ключів місяців від найновіших до найстаріших (наприклад: "2026-10", "2026-09", "2026-08")
+      const sortedMonthKeys = Array.from(monthMap.keys()).sort().reverse();
+
+      let optionsHtml = '<option value="all">Усі місяці</option>';
+      sortedMonthKeys.forEach(key => {
+        const label = monthMap.get(key);
+        const isSelected = key === selectedMonth ? 'selected' : '';
+        optionsHtml += `<option value="${key}" ${isSelected}>${label}</option>`;
+      });
+
+      monthSelect.innerHTML = optionsHtml;
+
+      if (selectedMonth && (sortedMonthKeys.includes(selectedMonth) || selectedMonth === 'all')) {
+        monthSelect.value = selectedMonth;
+      } else {
+        monthSelect.value = 'all';
+        selectedMonth = 'all';
+      }
     }
 
     /**
@@ -1774,7 +1886,7 @@
           idxTitle = index;
         } else if (hLower === 'лід' || hLower.includes('lead') || hLower.includes('короткий опис') || hLower.includes('анонс')) {
           idxLead = index;
-        } else if (hLower.includes('повний текст') || hLower.includes('повний') || (hLower.includes('текст новини') && !hLower.includes('короткий'))) {
+        } else if (hLower.includes('повний текст') || (hLower.includes('текст новини') && !hLower.includes('короткий'))) {
           idxFullText = index;
         } else if (hLower.includes('зображення') || hLower.includes('фото') || hLower.includes('image')) {
           idxImage = index;
@@ -1793,6 +1905,11 @@
       if (idxLink === -1) idxLink = 7;
 
       allNewsItems = [];
+
+      const ukrNominativeMonths = [
+        "Січень", "Лютий", "Березень", "Квітень", "Травень", "Червень",
+        "Липень", "Серпень", "Вересень", "Жовтень", "Листопад", "Грудень"
+      ];
 
       for (let i = dataRowsStartIndex; i < rows.length; i++) {
         const r = rows[i];
@@ -1845,11 +1962,25 @@
           if (match) youtubeId = match[1];
         }
 
+        // Обчислення ключа місяця для динамічного випадаючого списку (наприклад: "2026-09" => "Вересень 2026")
+        const dateObj = parseDateString(rawDate || date);
+        let monthKey = "";
+        let monthLabel = "";
+        if (dateObj.getTime() > 0) {
+          const y = dateObj.getFullYear();
+          const m = dateObj.getMonth();
+          monthKey = `${y}-${String(m + 1).padStart(2, '0')}`;
+          monthLabel = `${ukrNominativeMonths[m]} ${y}`;
+        }
+
         allNewsItems.push({
           id: id || String(allNewsItems.length + 1),
           sheetRow: i + 1,
           date: date || "—",
           rawDate: rawDate,
+          dateObj: dateObj,
+          monthKey: monthKey,
+          monthLabel: monthLabel,
           title: title,
           lead: lead,
           fullText: fullText,
@@ -1860,6 +1991,9 @@
           youtubeId: youtubeId
         });
       }
+
+      // Генерація пунктів у випадаючому списку місяців
+      updateMonthDropdown(allNewsItems);
     }
 
     function showLoading(active) {
@@ -1888,6 +2022,11 @@
 
       sortSelect.addEventListener('change', (e) => {
         sortKey = e.target.value;
+        updateAppUI();
+      });
+
+      monthSelect.addEventListener('change', (e) => {
+        selectedMonth = e.target.value;
         updateAppUI();
       });
 
@@ -1920,31 +2059,14 @@
       });
     }
 
-    function parseDateString(dateStr) {
-      if (!dateStr || dateStr === "—") return new Date(0);
-      const ukrMonths = [
-        "січня", "лютого", "березня", "квітня", "травня", "червня",
-        "липня", "серпня", "вересня", "жовтня", "листопада", "грудня"
-      ];
-      const parts = dateStr.split(' ');
-      if (parts.length === 3) {
-        const day = parseInt(parts[0], 10);
-        const monthStr = parts[1].toLowerCase();
-        const year = parseInt(parts[2], 10);
-        const monthIndex = ukrMonths.indexOf(monthStr);
-        if (monthIndex !== -1 && !isNaN(day) && !isNaN(year)) {
-          return new Date(year, monthIndex, day);
-        }
-      }
-      return new Date(0);
-    }
-
     /**
-     * Сортування за замовчуванням за зростанням номерів / рядків (№1 -> №2 -> №3)
+     * Сортування (за замовчуванням: від найновіших до найстаріших)
+     * та ізоляція новин за обраним місяцем
      */
     function getProcessedDataset() {
       let data = [...allNewsItems];
 
+      // Текстовий пошук
       if (searchTerm) {
         const term = searchTerm.toLowerCase();
         data = data.filter(item => {
@@ -1956,28 +2078,48 @@
         });
       }
 
-      if (sortKey === 'id-asc') {
+      // Фільтрація за обраним місяцем (новини різних місяців не змішуються)
+      if (selectedMonth && selectedMonth !== 'all') {
+        data = data.filter(item => item.monthKey === selectedMonth);
+      }
+
+      // Сортування (за замовчуванням date-desc: найновіші спочатку)
+      if (sortKey === 'date-desc') {
         data.sort((a, b) => {
+          const timeA = a.dateObj ? a.dateObj.getTime() : 0;
+          const timeB = b.dateObj ? b.dateObj.getTime() : 0;
+          if (timeB !== timeA) return timeB - timeA;
+          
           const numA = parseInt(a.id, 10);
           const numB = parseInt(b.id, 10);
-          if (!isNaN(numA) && !isNaN(numB)) {
-            return numA - numB;
-          }
+          if (!isNaN(numA) && !isNaN(numB)) return numB - numA;
+          return b.sheetRow - a.sheetRow;
+        });
+      } else if (sortKey === 'date-asc') {
+        data.sort((a, b) => {
+          const timeA = a.dateObj ? a.dateObj.getTime() : 0;
+          const timeB = b.dateObj ? b.dateObj.getTime() : 0;
+          if (timeA !== timeB) return timeA - timeB;
+
+          const numA = parseInt(a.id, 10);
+          const numB = parseInt(b.id, 10);
+          if (!isNaN(numA) && !isNaN(numB)) return numA - numB;
           return a.sheetRow - b.sheetRow;
         });
       } else if (sortKey === 'id-desc') {
         data.sort((a, b) => {
           const numA = parseInt(a.id, 10);
           const numB = parseInt(b.id, 10);
-          if (!isNaN(numA) && !isNaN(numB)) {
-            return numB - numA;
-          }
+          if (!isNaN(numA) && !isNaN(numB)) return numB - numA;
           return b.sheetRow - a.sheetRow;
         });
-      } else if (sortKey === 'date-desc') {
-        data.sort((a, b) => parseDateString(b.date) - parseDateString(a.date));
-      } else if (sortKey === 'date-asc') {
-        data.sort((a, b) => parseDateString(a.date) - parseDateString(b.date));
+      } else if (sortKey === 'id-asc') {
+        data.sort((a, b) => {
+          const numA = parseInt(a.id, 10);
+          const numB = parseInt(b.id, 10);
+          if (!isNaN(numA) && !isNaN(numB)) return numA - numB;
+          return a.sheetRow - b.sheetRow;
+        });
       }
 
       return data;
@@ -1991,7 +2133,7 @@
           <div class="no-results" style="width: 100%;">
             <i data-lucide="search-slash" style="width: 44px; height: 44px; opacity: 0.5; margin-bottom: 12px; color: var(--text-muted);"></i>
             <h3>Новин не знайдено</h3>
-            <p>Спробуйте змінити пошуковий запит.</p>
+            <p>Спробуйте обрати інший місяць або змінити пошуковий запит.</p>
           </div>
         `;
         lucide.createIcons();
@@ -2067,7 +2209,6 @@
           `;
         }
 
-        // Лід передається повністю і обмежується 12 рядками через CSS line-clamp
         const cleanLead = item.lead ? escapeHtml(item.lead.trim()) : '';
 
         const cardHtml = `
@@ -2153,7 +2294,6 @@
         `;
       }
 
-      // Тільки повний текст статті з відповідної колонки
       const formattedArticleBody = item.fullText ? formatFullArticleText(item.fullText) : '';
 
       modalTarget.innerHTML = `
