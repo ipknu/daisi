@@ -18,12 +18,13 @@
     :root {
       --primary-red: #b80000;         /* Фірмовий червоний акцент */
       --primary-red-hover: #900000;
-      --bg-light: #F4F6F9;            /* Світло-сірий фон */
+      --bg-light: #F4F6F9;            /* Світло-сірий фон для десктопу */
       --bg-card: #FFFFFF;             /* Чистий білий для карток */
       --border-color: #E2E8F0;        /* Рамки та розділювачі */
       --text-main: #0B192C;           /* Темно-синій основний текст */
       --text-muted: #64748B;          /* Спокійний сірий */
       --accent-blue: #1E3E62;         /* Темно-синій акцент */
+      --daisi-navy: #123B66;          /* Оновлений фірмовий темно-синій */
       --font-family: 'Montserrat', sans-serif;
     }
     *, *::before, *::after {
@@ -40,7 +41,7 @@
       color: var(--text-main);
       font-family: var(--font-family);
       line-height: 1.6;
-      padding: 10px 14px 40px; /* Базовий відступ для десктопу / Google Sites */
+      padding: 10px 14px 40px;
       overflow-wrap: break-word;
       word-break: break-word;
       -webkit-font-smoothing: antialiased;
@@ -60,10 +61,10 @@
     header {
       padding: 18px 20px;
       position: relative;
-      background: radial-gradient(circle at top, rgba(184, 0, 0, 0.08) 0%, transparent 60%), #0B192C;
+      background: radial-gradient(circle at top, rgba(184, 0, 0, 0.12) 0%, transparent 60%), var(--daisi-navy);
       border-bottom: 4px solid var(--primary-red);
       border-radius: 16px;
-      box-shadow: 0 8px 25px rgba(11, 25, 44, 0.08);
+      box-shadow: 0 8px 25px rgba(18, 59, 102, 0.18);
       margin-bottom: 16px;
       width: 100%;
     }
@@ -133,7 +134,7 @@
       margin: 0;
       max-width: 580px;
     }
-    /* Компактне пошукове поле, пропорційне селекторам */
+    /* Компактне пошукове поле */
     .header-search {
       flex: 0 0 auto;
       width: clamp(260px, 26vw, 320px);
@@ -173,7 +174,7 @@
       height: 15px;
     }
 
-    /* Панель керування: Сортування та Місяць вирівняно ліворуч */
+    /* Панель керування */
     .controls-card {
       background-color: var(--bg-card);
       border: 1px solid var(--border-color);
@@ -451,14 +452,14 @@
       height: 15px;
     }
 
-    /* МОДАЛЬНЕ ВІКНО ПОВНОГО МАТЕРІАЛУ (Mobile-Optimized) */
+    /* МОДАЛЬНЕ ВІКНО */
     .modal-overlay {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(15, 23, 42, 0.7);
+      background: rgba(18, 59, 102, 0.75);
       backdrop-filter: blur(6px);
       z-index: 10000;
       display: flex;
@@ -552,7 +553,7 @@
       padding-right: 30px;
     }
 
-    /* СТИЛІЗАЦІЯ ПОВНОГО ТЕКСТУ: BOLD, ITALIC, СПИСКИ, ЗАПИТАННЯ */
+    /* СТИЛІЗАЦІЯ ПОВНОГО ТЕКСТУ */
     .modal-paragraphs-block {
       display: flex;
       flex-direction: column;
@@ -983,7 +984,7 @@
     }
 
     /* ==============================================================
-       АДАПТИВНІ БРЕЙКПОІНТИ (1024px, 768px, 480px, 375px)
+       АДАПТИВНІ БРЕЙКПОІНТИ ЗІ СВІТЛІШИМ СИНІМ ФОНОМ (#123B66)
        ============================================================== */
 
     @media (max-width: 1024px) {
@@ -1000,13 +1001,20 @@
       }
     }
 
+    /* Мобільні пристрої та планшети (<= 768px): Застосування #123B66 до фону та обрамлення */
     @media (max-width: 768px) {
+      html, body {
+        background-color: var(--daisi-navy) !important; /* Світліший фірмовий темно-синій фон */
+      }
       body {
         padding: 8px 10px 40px;
       }
       header {
         padding: 16px 14px;
         border-radius: 14px;
+        background: radial-gradient(circle at top, rgba(184, 0, 0, 0.14) 0%, transparent 60%), #123B66;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-bottom: 4px solid var(--primary-red);
       }
       .header-container {
         flex-direction: column;
@@ -1028,13 +1036,13 @@
       }
 
       .controls-card {
-        padding: 12px 14px;
+        padding: 10px 14px;
+        justify-content: flex-start;
       }
       .controls-left-group {
         flex-direction: column;
         align-items: stretch;
-        gap: 12px;
-        width: 100%;
+        gap: 10px;
       }
       .control-item-wrapper {
         width: 100%;
@@ -1050,10 +1058,11 @@
         min-height: 44px;
       }
 
-      /* КАРТКА НА МОБІЛЬНОМУ: Зображення зверху, 100% ширина, збереження пропорцій */
+      /* КАРТКА НА МОБІЛЬНОМУ */
       .news-card {
         flex-direction: column;
         min-height: auto;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
       }
       .news-card-media-wrap {
         flex: none;
@@ -1085,6 +1094,34 @@
 
       .news-card-body-wrap {
         padding: 16px 16px 14px;
+      }
+
+      /* ПІДВАЛ НА МОБІЛЬНОМУ: Високий контраст на синьому фоні #123B66 */
+      footer {
+        border-top: 1px solid rgba(255, 255, 255, 0.15);
+      }
+      .contact-title {
+        color: #FFFFFF !important;
+      }
+      .footer-funding-text {
+        color: #E2E8F0 !important;
+      }
+      .contact-question {
+        color: #FFFFFF !important;
+      }
+      .contact-email {
+        color: #FF6B6B !important; /* Яскравий акцентний колір для гарної читабельності */
+      }
+      .footer-copy {
+        color: #94A3B8 !important;
+      }
+
+      /* Стан очікування та порожні результати на мобільному фоні */
+      .loading-state p, .no-results p {
+        color: #E2E8F0;
+      }
+      .no-results h3 {
+        color: #FFFFFF;
       }
 
       /* Плаваюча панель на мобільному */
@@ -1224,7 +1261,7 @@
           </div>
         </div>
 
-        <!-- 2. Динамічний випадний список місяців (згенерований із таблиці від найновіших до найстаріших) -->
+        <!-- 2. Динамічний випадний список місяців -->
         <div class="control-item-wrapper">
           <span class="control-label" for="monthSelect">Місяць:</span>
           <div class="custom-select-wrapper">
@@ -1330,6 +1367,7 @@
       </a>
     </div>
 
+    <!-- Оновлений копірайт -->
     <div class="footer-copy">
       &copy; 2026 DAISI Ukraine
     </div>
@@ -1381,7 +1419,6 @@
           if (!text) return;
 
           let formatted = escapeHtml(text);
-          // Стилі комбінуються незалежно (може бути одночасно і жирний, і курсив)
           if (inheritedBold && inheritedItalic) {
             formatted = `<strong><em>${formatted}</em></strong>`;
           } else if (inheritedBold) {
@@ -1407,12 +1444,10 @@
           if (tag === 'b' || tag === 'strong') isBold = true;
           if (tag === 'i' || tag === 'em') isItalic = true;
 
-          // Перевірка інлайн-стилів
           const inlineStyle = (node.getAttribute('style') || '').toLowerCase();
           if (/font-weight\s*:\s*(bold|[789]00)/.test(inlineStyle)) isBold = true;
           if (/font-style\s*:\s*italic/.test(inlineStyle)) isItalic = true;
 
-          // Перевірка класів зі стилями Google Sheets
           const classList = node.classList || [];
           classList.forEach(cls => {
             if (cssStyleMap && cssStyleMap[cls]) {
@@ -1448,7 +1483,6 @@
         const table = doc.querySelector('table');
         if (!table) return { images: {}, richTexts: {} };
 
-        // Збір класів стилів шрифтів із тегів <style>
         const cssStyleMap = {};
         doc.querySelectorAll('style').forEach(st => {
           const css = st.textContent || '';
@@ -1490,7 +1524,6 @@
           const cells = rows[r].querySelectorAll('td');
           const offset = r - startRow;
           
-          // Витягуємо зображення
           if (cells.length > imgColIdx) {
             const imgTag = cells[imgColIdx].querySelector('img');
             if (imgTag && imgTag.src) {
@@ -1498,7 +1531,6 @@
             }
           }
 
-          // Послідовна обробка кожного Rich Text фрагмента без пропусків
           if (cells.length > fullTextColIdx) {
             const textCell = cells[fullTextColIdx];
             const parsedRichHtml = parseCellToRichHtml(textCell, cssStyleMap);
@@ -1597,9 +1629,6 @@
         .replace(/'/g, '&#039;');
     }
 
-    /**
-     * Точний парсер дати в об'єкт Date для сортування та виділення місяця
-     */
     function parseDateString(dateStr) {
       if (!dateStr || dateStr === "—") return new Date(0);
       let cleanStr = String(dateStr).trim();
@@ -1644,7 +1673,7 @@
     }
 
     /**
-     * Динамічне наповнення випадаючого списку місяців на основі реальних опублікованих дат
+     * Динамічне наповнення випадаючого списку місяців на основі дат
      */
     function updateMonthDropdown(items) {
       if (!monthSelect) return;
@@ -1656,7 +1685,6 @@
         }
       });
 
-      // Сортування ключів місяців від найновіших до найстаріших (наприклад: "2026-10", "2026-09", "2026-08")
       const sortedMonthKeys = Array.from(monthMap.keys()).sort().reverse();
 
       let optionsHtml = '<option value="all">Усі місяці</option>';
@@ -1676,9 +1704,6 @@
       }
     }
 
-    /**
-     * Збереження наявних тегів <strong>, <em> та створення клікабельних посилань
-     */
     function processInlineFormatting(text) {
       if (!text) return '';
       
@@ -1711,14 +1736,10 @@
       return tokenized;
     }
 
-    /**
-     * Повний парсер статті: надійно зберігає перше запитання, жирний шрифт, курсив автора, списки та абзаци
-     */
     function formatFullArticleText(rawText) {
       if (!rawText) return '';
       let clean = rawText.replace(/\r\n/g, '\n').replace(/\r/g, '\n').trim();
 
-      // Конвертація Markdown стилів у валідний HTML
       clean = clean.replace(/\*\*\*([^*]+)\*\*\*/g, '<strong><em>$1</em></strong>');
       clean = clean.replace(/\*\*\_([^_]+)\_\*\*/g, '<strong><em>$1</em></strong>');
       clean = clean.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
@@ -1731,7 +1752,6 @@
         let trimmed = line.trim();
         if (!trimmed) return;
 
-        // Пункти списків: 🔹, 🔷, •, -, *
         const isBullet = /^[🔹🔷•\-\*▪️]\s*(.+)/.test(trimmed);
         if (isBullet) {
           const formattedLine = processInlineFormatting(trimmed);
@@ -1739,7 +1759,6 @@
           return;
         }
 
-        // Фінальний підпис автора (зберігає і bold, і italic комбіновано)
         const isAuthorByline = /^підготував|^підготувала|^автор|^фото/i.test(trimmed) && trimmed.length < 130;
         if (isAuthorByline) {
           let bylineFormatted = processInlineFormatting(trimmed);
@@ -1748,7 +1767,6 @@
           return;
         }
 
-        // Перевірка запитань інтерв'ю (включно з репліками "Розкажіть про себе...", репліками з тире, знаками питання)
         const isDashQuestion = /^[–—\-]\s*.+[\?:]$/i.test(trimmed);
         const endsWithQuestion = trimmed.endsWith('?') && trimmed.length < 320;
         const isImperativeQuestion = /^(розкажіть|поясніть|опишіть|поділіться)\b/i.test(trimmed) && trimmed.length < 250;
@@ -1771,9 +1789,6 @@
       return html;
     }
 
-    /**
-     * Розумне вилучення URL картинок із підтримкою мобільних браузерів та HTTPS
-     */
     function extractImageUrl(rawImage) {
       if (!rawImage || typeof rawImage !== 'string') return '';
       let str = rawImage.trim();
@@ -1788,7 +1803,6 @@
         str = urlMatch[1];
       }
 
-      // Перетворення Google Drive лінків у прямі оптимізовані прев'ю
       if (str.includes('drive.google.com')) {
         const fileIdMatch = str.match(/\/file\/d\/([a-zA-Z0-9_-]+)/) || str.match(/[?&]id=([a-zA-Z0-9_-]+)/);
         if (fileIdMatch && fileIdMatch[1]) {
@@ -1895,7 +1909,6 @@
         }
       });
 
-      // Позиційні дефолтні індекси
       if (idxId === -1) idxId = 1;
       if (idxDate === -1) idxDate = 2;
       if (idxTitle === -1) idxTitle = 3;
@@ -1962,7 +1975,7 @@
           if (match) youtubeId = match[1];
         }
 
-        // Обчислення ключа місяця для динамічного випадаючого списку (наприклад: "2026-09" => "Вересень 2026")
+        // Обчислення ключа місяця для випадаючого списку (наприклад: "2026-09" => "Вересень 2026")
         const dateObj = parseDateString(rawDate || date);
         let monthKey = "";
         let monthLabel = "";
@@ -1992,7 +2005,6 @@
         });
       }
 
-      // Генерація пунктів у випадаючому списку місяців
       updateMonthDropdown(allNewsItems);
     }
 
@@ -2060,7 +2072,7 @@
     }
 
     /**
-     * Сортування (за замовчуванням: від найновіших до найстаріших)
+     * Сортування від найновіших до найстаріших (за замовчуванням)
      * та ізоляція новин за обраним місяцем
      */
     function getProcessedDataset() {
@@ -2078,7 +2090,7 @@
         });
       }
 
-      // Фільтрація за обраним місяцем (новини різних місяців не змішуються)
+      // Ізоляція за місяцем: якщо обрано місяць, показувати новини лише цього місяця
       if (selectedMonth && selectedMonth !== 'all') {
         data = data.filter(item => item.monthKey === selectedMonth);
       }
