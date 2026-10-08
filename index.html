@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <!-- Запобігання автоінверсії кольорів мобільними браузерами в темній темі системи -->
+  <meta name="color-scheme" content="light">
   <title>DAISI Ukraine — Новини та дослідження</title>
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Flag_of_Ukraine.svg/960px-Flag_of_Ukraine.svg.png">
@@ -16,15 +18,18 @@
   <script src="https://unpkg.com/lucide@latest"></script>
   <style>
     :root {
-      --primary-red: #b80000;         /* Фірмовий червоний акцент */
+      color-scheme: light;            /* Суворий світлий режим для усунення перефарбування карток браузером */
+      --primary-red: #b80000;         /* Фірмовий червоний акцент DAISI */
       --primary-red-hover: #900000;
       --bg-light: #F4F6F9;            /* Світло-сірий фон для десктопу */
       --bg-card: #FFFFFF;             /* Чистий білий для карток */
       --border-color: #E2E8F0;        /* Рамки та розділювачі */
-      --text-main: #0B192C;           /* Темно-синій основний текст */
+      --text-main: #0F172A;           /* Базовий темний текст карток */
+      --text-title: #0B1F3A;          /* Темно-синій для заголовків новин */
+      --text-body: #44546A;           /* Середній сіро-синій для тексту ліду та дат */
       --text-muted: #64748B;          /* Спокійний сірий */
       --accent-blue: #1E3E62;         /* Темно-синій акцент */
-      --daisi-navy: #123B66;          /* Оновлений фірмовий темно-синій */
+      --daisi-navy: #123B66;          /* Зовнішній синій фон мобільної версії */
       --font-family: 'Montserrat', sans-serif;
     }
     *, *::before, *::after {
@@ -121,18 +126,19 @@
       line-height: 1.2;
     }
     .subtitle {
-      font-size: clamp(0.74rem, 2vw, 0.8rem);
-      color: #94A3B8;
+      font-size: clamp(0.74rem, 2vw, 0.82rem);
+      color: #E2E8F0 !important;
       margin: 0;
       font-weight: 500;
     }
-    /* Опис проєкту під логотипом */
+    /* 8. Яскравіший та легкий для читання опис проєкту (#F4F7FB) */
     .project-description {
-      font-size: clamp(0.72rem, 1.8vw, 0.76rem);
-      color: #CBD5E1;
-      line-height: 1.45;
+      font-size: clamp(0.74rem, 1.8vw, 0.8rem);
+      color: #F4F7FB !important;
+      line-height: 1.5;
       margin: 0;
       max-width: 580px;
+      opacity: 0.95;
     }
     /* Компактне пошукове поле */
     .header-search {
@@ -149,10 +155,10 @@
       width: 100%;
       min-height: 42px;
       padding: 8px 16px 8px 38px;
-      background-color: var(--bg-card);
+      background-color: #FFFFFF !important;
       border: 1px solid var(--border-color);
       border-radius: 30px;
-      color: var(--text-main);
+      color: #0B1F3A !important;
       font-family: var(--font-family);
       font-size: 0.8rem;
       transition: all 0.25s ease;
@@ -174,10 +180,11 @@
       height: 15px;
     }
 
-    /* Панель керування */
+    /* Панель керування: Сортування та вибір місяця */
     .controls-card {
-      background-color: var(--bg-card);
-      border: 1px solid var(--border-color);
+      background: #FFFFFF !important;
+      background-color: #FFFFFF !important;
+      border: 1px solid var(--border-color) !important;
       border-radius: 14px;
       padding: 10px 16px;
       margin-bottom: 22px;
@@ -204,7 +211,7 @@
     .control-label {
       font-size: 0.78rem;
       font-weight: 700;
-      color: var(--text-muted);
+      color: #44546A !important;
       letter-spacing: 0.5px;
       white-space: nowrap;
     }
@@ -215,14 +222,14 @@
     }
     .custom-select {
       appearance: none;
-      background-color: var(--bg-card);
-      border: 1px solid var(--border-color);
+      background-color: #FFFFFF !important;
+      border: 1px solid var(--border-color) !important;
       border-radius: 30px;
       padding: 8px 34px 8px 16px;
       min-height: 42px;
       font-family: var(--font-family);
       font-size: 0.8rem;
-      color: var(--text-main);
+      color: #0B1F3A !important;
       font-weight: 700;
       cursor: pointer;
       outline: none;
@@ -231,7 +238,7 @@
       white-space: nowrap;
     }
     .custom-select:focus {
-      border-color: var(--primary-red);
+      border-color: var(--primary-red) !important;
     }
     .sort-icon {
       position: absolute;
@@ -248,7 +255,7 @@
       width: 100%;
     }
 
-    /* ВЕРТИКАЛЬНА ОДНОКОЛОНКОВА СТРІЧКА НОВИН */
+    /* 2 & 5. КАРТКИ НОВИН У СВІТЛІЙ ТЕМІ (БІЛЕ ТЛО, ТЕМНО-СИНІЙ ТЕКСТ) */
     .news-feed {
       display: flex;
       flex-direction: column;
@@ -256,8 +263,10 @@
       width: 100%;
     }
     .news-card {
-      background-color: var(--bg-card);
-      border: 1px solid var(--border-color);
+      background: #FFFFFF !important;
+      background-color: #FFFFFF !important;
+      color: #0F172A !important;
+      border: 1px solid var(--border-color) !important;
       border-radius: 16px;
       overflow: hidden;
       display: flex;
@@ -265,15 +274,15 @@
       align-items: stretch;
       width: 100%;
       min-height: 220px;
-      border-left: 5px solid var(--primary-red);
-      box-shadow: 0 4px 15px rgba(11, 25, 44, 0.02);
+      border-left: 5px solid var(--primary-red) !important;
+      box-shadow: 0 4px 15px rgba(11, 25, 44, 0.04);
       transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
       cursor: pointer;
     }
     .news-card:hover {
       transform: translateY(-3px);
-      box-shadow: 0 12px 28px rgba(11, 25, 44, 0.08);
-      border-color: rgba(30, 62, 98, 0.25);
+      box-shadow: 0 12px 28px rgba(11, 25, 44, 0.1);
+      border-color: rgba(30, 62, 98, 0.25) !important;
     }
 
     /* Ліва колонка картки: Медіа (Десктоп) */
@@ -282,7 +291,7 @@
       max-width: 360px;
       min-width: 250px;
       position: relative;
-      background-color: #E2E8F0;
+      background-color: #F8FAFC !important;
       overflow: hidden;
       display: flex;
       align-items: center;
@@ -359,6 +368,8 @@
       flex-direction: column;
       justify-content: space-between;
       min-width: 0;
+      background: #FFFFFF !important;
+      background-color: #FFFFFF !important;
     }
     .news-card-meta-top {
       display: flex;
@@ -376,39 +387,43 @@
       font-size: 0.68rem;
       font-weight: 700;
       letter-spacing: 0.5px;
-      background-color: rgba(184, 0, 0, 0.08);
-      color: var(--primary-red);
+      background-color: rgba(184, 0, 0, 0.08) !important;
+      color: var(--primary-red) !important;
     }
     .news-card-meta-text {
       font-size: 0.75rem;
-      color: var(--text-muted);
+      color: #44546A !important;
       font-weight: 500;
     }
-    .news-card-title {
+    /* Темно-синій колір заголовків новин (#0B1F3A) */
+    .news-card-title,
+    .news-card h2 {
       font-size: clamp(1.12rem, 3.2vw, 1.25rem);
       font-weight: 800;
-      color: var(--text-main);
+      color: #0B1F3A !important;
       line-height: 1.35;
       margin-bottom: 8px;
       transition: color 0.2s ease;
       overflow-wrap: break-word;
       word-break: break-word;
     }
-    .news-card:hover .news-card-title {
-      color: var(--primary-red);
+    .news-card:hover .news-card-title,
+    .news-card:hover h2 {
+      color: var(--primary-red) !important;
     }
     .news-card-divider {
       width: 35px;
       height: 3px;
-      background-color: var(--primary-red);
+      background-color: var(--primary-red) !important;
       border-radius: 2px;
       margin-bottom: 12px;
     }
-    /* Видимий ліміт ліду до 12 рядків */
-    .news-card-excerpt {
-      font-size: clamp(0.84rem, 2.2vw, 0.88rem);
+    /* Сіро-синій текст ліду (#44546A), до 12 рядків */
+    .news-card-excerpt,
+    .news-card p {
+      font-size: clamp(0.85rem, 2.2vw, 0.9rem);
       line-height: 1.65;
-      color: #334155;
+      color: #44546A !important;
       margin-bottom: 16px;
       display: -webkit-box;
       -webkit-line-clamp: 12;
@@ -434,7 +449,7 @@
       gap: 6px;
       background-color: transparent;
       border: none;
-      color: var(--primary-red);
+      color: var(--primary-red) !important;
       font-family: var(--font-family);
       font-size: 0.84rem;
       font-weight: 700;
@@ -445,14 +460,14 @@
     }
     .news-card:hover .read-more-btn {
       gap: 9px;
-      color: var(--primary-red-hover);
+      color: var(--primary-red-hover) !important;
     }
     .read-more-btn i {
       width: 15px;
       height: 15px;
     }
 
-    /* МОДАЛЬНЕ ВІКНО */
+    /* МОДАЛЬНЕ ВІКНО ПОВНОГО МАТЕРІАЛУ */
     .modal-overlay {
       position: fixed;
       top: 0;
@@ -475,7 +490,7 @@
       pointer-events: auto;
     }
     .modal-card {
-      background: var(--bg-card);
+      background: #FFFFFF !important;
       border-radius: 18px;
       width: min(95vw, 760px);
       max-height: 92vh;
@@ -519,6 +534,7 @@
       overflow-y: auto;
       scrollbar-width: thin;
       -webkit-overflow-scrolling: touch;
+      background-color: #FFFFFF !important;
     }
 
     /* Збереження вихідних пропорцій фото у модальному вікні */
@@ -547,7 +563,7 @@
     .modal-title {
       font-size: clamp(1.2rem, 3.8vw, 1.45rem);
       font-weight: 800;
-      color: var(--text-main);
+      color: #0B1F3A !important;
       line-height: 1.35;
       margin-bottom: 14px;
       padding-right: 30px;
@@ -563,7 +579,7 @@
     .modal-paragraph {
       font-size: clamp(0.9rem, 2.4vw, 0.95rem);
       line-height: 1.75;
-      color: #1E293B;
+      color: #1E293B !important;
       white-space: pre-line;
       overflow-wrap: break-word;
       word-break: break-word;
@@ -574,7 +590,7 @@
     .article-subheading strong, 
     .article-list-item strong {
       font-weight: 700 !important;
-      color: var(--text-main) !important;
+      color: #0B1F3A !important;
     }
     .modal-paragraph em,
     .modal-question-para em,
@@ -598,7 +614,7 @@
     .article-subheading {
       font-size: 1.05rem;
       font-weight: 700;
-      color: var(--text-main);
+      color: #0B1F3A !important;
       margin-top: 18px;
       margin-bottom: 6px;
       line-height: 1.4;
@@ -606,7 +622,7 @@
     .article-list-item {
       font-size: 0.95rem;
       line-height: 1.65;
-      color: #1E293B;
+      color: #1E293B !important;
       margin-bottom: 6px;
       padding-left: 4px;
     }
@@ -670,7 +686,7 @@
       display: block;
       font-size: 0.78rem;
       font-weight: 700;
-      color: var(--text-main);
+      color: #0B1F3A !important;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -723,7 +739,7 @@
       border-radius: 30px;
       font-family: var(--font-family);
       font-size: 0.8rem;
-      color: var(--text-main);
+      color: #0B1F3A;
       width: 180px;
       min-height: 40px;
       transition: all 0.3s ease;
@@ -846,14 +862,14 @@
     .contact-title {
       font-size: 1.05rem;
       font-weight: 800;
-      color: var(--text-main);
+      color: #0B1F3A;
       margin: 0;
       letter-spacing: -0.3px;
     }
     .footer-funding-text {
       font-size: clamp(0.74rem, 2vw, 0.78rem);
       line-height: 1.55;
-      color: #64748B;
+      color: #44546A;
       text-align: left;
       margin: 4px 0 10px 0;
     }
@@ -917,7 +933,7 @@
       flex-wrap: nowrap;
       gap: 18px;
       padding: 16px 24px;
-      background: var(--bg-card);
+      background: #FFFFFF !important;
       border: 1px solid var(--border-color);
       border-radius: 14px;
       margin-bottom: 16px;
@@ -984,7 +1000,7 @@
     }
 
     /* ==============================================================
-       АДАПТИВНІ БРЕЙКПОІНТИ ЗІ СВІТЛІШИМ СИНІМ ФОНОМ (#123B66)
+       АДАПТИВНІ БРЕЙКПОІНТИ (1024px, 768px, 480px, 375px)
        ============================================================== */
 
     @media (max-width: 1024px) {
@@ -1001,10 +1017,13 @@
       }
     }
 
-    /* Мобільні пристрої та планшети (<= 768px): Застосування #123B66 до фону та обрамлення */
+    /* 1. Мобільні пристрої та планшети (<= 768px):
+       - зовнішній синій фон #123B66
+       - СУВОРЕ БІЛЕ ТЛО ТА ТЕМНИЙ ТЕКСТ КАРТОК
+    */
     @media (max-width: 768px) {
       html, body {
-        background-color: var(--daisi-navy) !important; /* Світліший фірмовий темно-синій фон */
+        background-color: var(--daisi-navy) !important; /* Зовнішній синій фон #123B66 навколо контенту */
       }
       body {
         padding: 8px 10px 40px;
@@ -1013,7 +1032,7 @@
         padding: 16px 14px;
         border-radius: 14px;
         background: radial-gradient(circle at top, rgba(184, 0, 0, 0.14) 0%, transparent 60%), #123B66;
-        border: 1px solid rgba(255, 255, 255, 0.12);
+        border: 1px solid rgba(255, 255, 255, 0.15);
         border-bottom: 4px solid var(--primary-red);
       }
       .header-container {
@@ -1021,7 +1040,6 @@
         align-items: stretch;
         gap: 12px;
       }
-
       .header-branding {
         flex: 0 0 auto;
         max-width: 100%;
@@ -1035,9 +1053,13 @@
         margin-top: 4px;
       }
 
+      /* Панель сортування та вибору місяця на мобільному */
       .controls-card {
         padding: 10px 14px;
         justify-content: flex-start;
+        background: #FFFFFF !important;
+        background-color: #FFFFFF !important;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
       }
       .controls-left-group {
         flex-direction: column;
@@ -1056,13 +1078,18 @@
       .custom-select {
         width: 100%;
         min-height: 44px;
+        background-color: #FFFFFF !important;
+        color: #0B1F3A !important;
       }
 
-      /* КАРТКА НА МОБІЛЬНОМУ */
+      /* 2. СУВОРЕ БІЛЕ ТЛО ДЛЯ КАРТОК НОВИН НА МОБІЛЬНОМУ */
       .news-card {
         flex-direction: column;
         min-height: auto;
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        background: #FFFFFF !important;
+        background-color: #FFFFFF !important;
+        color: #0F172A !important;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.16);
       }
       .news-card-media-wrap {
         flex: none;
@@ -1070,12 +1097,14 @@
         max-width: 100%;
         min-width: 0;
         height: auto;
-        background-color: transparent;
+        background: #F8FAFC !important;
+        background-color: #F8FAFC !important;
         border-bottom: 1px solid var(--border-color);
       }
       .news-media-thumb-container {
         width: 100%;
         height: auto;
+        background-color: #F8FAFC !important;
       }
       .news-card-thumb-img {
         width: 100%;
@@ -1094,11 +1123,29 @@
 
       .news-card-body-wrap {
         padding: 16px 16px 14px;
+        background: #FFFFFF !important;
+        background-color: #FFFFFF !important;
       }
 
-      /* ПІДВАЛ НА МОБІЛЬНОМУ: Високий контраст на синьому фоні #123B66 */
+      /* Темно-синій заголовок та контрастний лід на мобільному */
+      .news-card-title,
+      .news-card h2 {
+        color: #0B1F3A !important;
+      }
+      .news-card-excerpt,
+      .news-card p {
+        color: #44546A !important;
+      }
+      .news-card-meta-text {
+        color: #44546A !important;
+      }
+      .read-more-btn {
+        color: var(--primary-red) !important;
+      }
+
+      /* Текст футера на синьому фоні #123B66 */
       footer {
-        border-top: 1px solid rgba(255, 255, 255, 0.15);
+        border-top: 1px solid rgba(255, 255, 255, 0.18);
       }
       .contact-title {
         color: #FFFFFF !important;
@@ -1110,13 +1157,12 @@
         color: #FFFFFF !important;
       }
       .contact-email {
-        color: #FF6B6B !important; /* Яскравий акцентний колір для гарної читабельності */
+        color: #FF6B6B !important;
       }
       .footer-copy {
-        color: #94A3B8 !important;
+        color: #CBD5E1 !important;
       }
 
-      /* Стан очікування та порожні результати на мобільному фоні */
       .loading-state p, .no-results p {
         color: #E2E8F0;
       }
@@ -1163,6 +1209,8 @@
         justify-content: center;
         gap: 16px 20px;
         padding: 14px 12px;
+        background: #FFFFFF !important;
+        background-color: #FFFFFF !important;
       }
     }
 
@@ -1672,9 +1720,6 @@
       return isNaN(parsed.getTime()) ? new Date(0) : parsed;
     }
 
-    /**
-     * Динамічне наповнення випадаючого списку місяців на основі дат
-     */
     function updateMonthDropdown(items) {
       if (!monthSelect) return;
 
@@ -1975,7 +2020,6 @@
           if (match) youtubeId = match[1];
         }
 
-        // Обчислення ключа місяця для випадаючого списку (наприклад: "2026-09" => "Вересень 2026")
         const dateObj = parseDateString(rawDate || date);
         let monthKey = "";
         let monthLabel = "";
@@ -2072,8 +2116,7 @@
     }
 
     /**
-     * Сортування від найновіших до найстаріших (за замовчуванням)
-     * та ізоляція новин за обраним місяцем
+     * Сортування від найновіших до найстаріших та фільтр за місяцем
      */
     function getProcessedDataset() {
       let data = [...allNewsItems];
@@ -2090,12 +2133,12 @@
         });
       }
 
-      // Ізоляція за місяцем: якщо обрано місяць, показувати новини лише цього місяця
+      // Ізоляція за місяцем
       if (selectedMonth && selectedMonth !== 'all') {
         data = data.filter(item => item.monthKey === selectedMonth);
       }
 
-      // Сортування (за замовчуванням date-desc: найновіші спочатку)
+      // Сортування (date-desc: найновіші спочатку)
       if (sortKey === 'date-desc') {
         data.sort((a, b) => {
           const timeA = a.dateObj ? a.dateObj.getTime() : 0;
@@ -2143,9 +2186,9 @@
       if (activeData.length === 0) {
         newsGrid.innerHTML = `
           <div class="no-results" style="width: 100%;">
-            <i data-lucide="search-slash" style="width: 44px; height: 44px; opacity: 0.5; margin-bottom: 12px; color: var(--text-muted);"></i>
-            <h3>Новин не знайдено</h3>
-            <p>Спробуйте обрати інший місяць або змінити пошуковий запит.</p>
+            <i data-lucide="search-slash" style="width: 44px; height: 44px; opacity: 0.5; margin-bottom: 12px; color: #E2E8F0;"></i>
+            <h3 style="color: #FFFFFF;">Новин не знайдено</h3>
+            <p style="color: #E2E8F0;">Спробуйте обрати інший місяць або змінити пошуковий запит.</p>
           </div>
         `;
         lucide.createIcons();
@@ -2221,6 +2264,7 @@
           `;
         }
 
+        // Лід передається повністю і обмежується 12 рядками через CSS line-clamp
         const cleanLead = item.lead ? escapeHtml(item.lead.trim()) : '';
 
         const cardHtml = `
@@ -2306,6 +2350,7 @@
         `;
       }
 
+      // Тільки повний текст статті з відповідної колонки
       const formattedArticleBody = item.fullText ? formatFullArticleText(item.fullText) : '';
 
       modalTarget.innerHTML = `
