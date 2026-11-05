@@ -18,7 +18,7 @@
   <script src="https://unpkg.com/lucide@latest"></script>
   <style>
     :root {
-      color-scheme: light;            /* Суворий світлий режим для усунення перефарбування карток браузером */
+      color-scheme: light;            /* Світлий режим для усунення перефарбування карток браузером */
       --primary-red: #b80000;         /* Фірмовий червоний акцент DAISI */
       --primary-red-hover: #900000;
       --bg-light: #F4F6F9;            /* Світло-сірий фон для десктопу */
@@ -125,13 +125,14 @@
       color: #FFFFFF;
       line-height: 1.2;
     }
+    /* Оновлений підзаголовок без слова "Вересневі" */
     .subtitle {
       font-size: clamp(0.74rem, 2vw, 0.82rem);
       color: #E2E8F0 !important;
       margin: 0;
       font-weight: 500;
     }
-    /* 8. Яскравіший та легкий для читання опис проєкту (#F4F7FB) */
+    /* Яскравіший та легкий для читання опис проєкту */
     .project-description {
       font-size: clamp(0.74rem, 1.8vw, 0.8rem);
       color: #F4F7FB !important;
@@ -180,13 +181,13 @@
       height: 15px;
     }
 
-    /* Панель керування: Сортування та вибір місяця */
+    /* Панель керування: Сортування та Вкладки Місяців */
     .controls-card {
       background: #FFFFFF !important;
       background-color: #FFFFFF !important;
       border: 1px solid var(--border-color) !important;
       border-radius: 14px;
-      padding: 10px 16px;
+      padding: 12px 18px;
       margin-bottom: 22px;
       box-shadow: 0 4px 15px rgba(11, 25, 44, 0.02);
       display: flex;
@@ -202,6 +203,7 @@
       align-items: center;
       gap: 20px;
       flex-wrap: wrap;
+      width: 100%;
     }
     .control-item-wrapper {
       display: flex;
@@ -226,7 +228,7 @@
       border: 1px solid var(--border-color) !important;
       border-radius: 30px;
       padding: 8px 34px 8px 16px;
-      min-height: 42px;
+      min-height: 40px;
       font-family: var(--font-family);
       font-size: 0.8rem;
       color: #0B1F3A !important;
@@ -248,6 +250,53 @@
       height: 14px;
       pointer-events: none;
     }
+
+    /* ВКЛАДКИ МІСЯЦІВ (MONTH TABS) */
+    .month-tabs-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .month-tabs-container {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .month-tab-btn {
+      appearance: none;
+      background: #FFFFFF;
+      background-color: #FFFFFF;
+      border: 1px solid var(--border-color);
+      border-radius: 30px;
+      padding: 7px 15px;
+      min-height: 38px;
+      font-family: var(--font-family);
+      font-size: 0.78rem;
+      color: var(--text-title);
+      font-weight: 700;
+      cursor: pointer;
+      outline: none;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      touch-action: manipulation;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .month-tab-btn:hover {
+      border-color: var(--primary-red);
+      color: var(--primary-red);
+    }
+    .month-tab-btn.active {
+      background: var(--primary-red) !important;
+      background-color: var(--primary-red) !important;
+      border-color: var(--primary-red) !important;
+      color: #FFFFFF !important;
+      box-shadow: 0 4px 12px rgba(184, 0, 0, 0.25);
+    }
+
     main {
       max-width: 1200px;
       margin: 0 auto;
@@ -255,7 +304,7 @@
       width: 100%;
     }
 
-    /* 2 & 5. КАРТКИ НОВИН У СВІТЛІЙ ТЕМІ (БІЛЕ ТЛО, ТЕМНО-СИНІЙ ТЕКСТ) */
+    /* КАРТКИ НОВИН У СВІТЛІЙ ТЕМІ (БІЛЕ ТЛО, ТЕМНО-СИНІЙ ТЕКСТ) */
     .news-feed {
       display: flex;
       flex-direction: column;
@@ -395,7 +444,7 @@
       color: #44546A !important;
       font-weight: 500;
     }
-    /* Темно-синій колір заголовків новин (#0B1F3A) */
+    /* Темно-синій колір заголовків новин */
     .news-card-title,
     .news-card h2 {
       font-size: clamp(1.12rem, 3.2vw, 1.25rem);
@@ -1000,7 +1049,7 @@
     }
 
     /* ==============================================================
-       АДАПТИВНІ БРЕЙКПОІНТИ (1024px, 768px, 480px, 375px)
+       АДАПТИВНІ БРЕЙКПОІНТИ
        ============================================================== */
 
     @media (max-width: 1024px) {
@@ -1017,13 +1066,10 @@
       }
     }
 
-    /* 1. Мобільні пристрої та планшети (<= 768px):
-       - зовнішній синій фон #123B66
-       - СУВОРЕ БІЛЕ ТЛО ТА ТЕМНИЙ ТЕКСТ КАРТОК
-    */
+    /* Мобільні пристрої та планшети (<= 768px) */
     @media (max-width: 768px) {
       html, body {
-        background-color: var(--daisi-navy) !important; /* Зовнішній синій фон #123B66 навколо контенту */
+        background-color: var(--daisi-navy) !important;
       }
       body {
         padding: 8px 10px 40px;
@@ -1053,9 +1099,9 @@
         margin-top: 4px;
       }
 
-      /* Панель сортування та вибору місяця на мобільному */
+      /* Панель сортування та вкладок на мобільному */
       .controls-card {
-        padding: 10px 14px;
+        padding: 12px 14px;
         justify-content: flex-start;
         background: #FFFFFF !important;
         background-color: #FFFFFF !important;
@@ -1064,7 +1110,7 @@
       .controls-left-group {
         flex-direction: column;
         align-items: stretch;
-        gap: 10px;
+        gap: 12px;
       }
       .control-item-wrapper {
         width: 100%;
@@ -1077,12 +1123,30 @@
       }
       .custom-select {
         width: 100%;
-        min-height: 44px;
+        min-height: 42px;
         background-color: #FFFFFF !important;
         color: #0B1F3A !important;
       }
 
-      /* 2. СУВОРЕ БІЛЕ ТЛО ДЛЯ КАРТОК НОВИН НА МОБІЛЬНОМУ */
+      .month-tabs-wrapper {
+        width: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+      }
+      .month-tabs-container {
+        width: 100%;
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+      }
+      .month-tab-btn {
+        flex: 1 1 auto;
+        min-height: 42px;
+        text-align: center;
+      }
+
+      /* КАРТКА НА МОБІЛЬНОМУ */
       .news-card {
         flex-direction: column;
         min-height: auto;
@@ -1127,7 +1191,6 @@
         background-color: #FFFFFF !important;
       }
 
-      /* Темно-синій заголовок та контрастний лід на мобільному */
       .news-card-title,
       .news-card h2 {
         color: #0B1F3A !important;
@@ -1143,7 +1206,6 @@
         color: var(--primary-red) !important;
       }
 
-      /* Текст футера на синьому фоні #123B66 */
       footer {
         border-top: 1px solid rgba(255, 255, 255, 0.18);
       }
@@ -1170,7 +1232,6 @@
         color: #FFFFFF;
       }
 
-      /* Плаваюча панель на мобільному */
       .floating-controls-panel {
         bottom: 12px;
         right: 12px;
@@ -1190,7 +1251,6 @@
         width: 100%;
       }
 
-      /* Модальне вікно */
       .modal-card {
         width: 96vw;
         max-height: 94vh;
@@ -1203,7 +1263,6 @@
         max-height: 45vh;
       }
 
-      /* Партнери без горизонтального скролу */
       .partner-logos-bar {
         flex-wrap: wrap;
         justify-content: center;
@@ -1273,7 +1332,8 @@
           >
           <div class="branding-titles">
             <h1>DAISI Ukraine</h1>
-            <p class="subtitle">Вересневі підсумки від команди проєкту</p>
+            <!-- Оновлений підзаголовок без слова "Вересневі" -->
+            <p class="subtitle">Підсумки від команди проєкту</p>
           </div>
         </div>
         <p class="project-description">
@@ -1292,7 +1352,7 @@
   </header>
 
   <main>
-    <!-- Панель керування: Сортування та Вибір місяця (вирівняно ліворуч) -->
+    <!-- Панель керування: Сортування та Вкладки вибору місяця -->
     <div class="controls-card">
       <div class="controls-left-group">
         <!-- 1. Сортування за замовчуванням: Найновіші спочатку -->
@@ -1309,14 +1369,11 @@
           </div>
         </div>
 
-        <!-- 2. Динамічний випадний список місяців -->
-        <div class="control-item-wrapper">
-          <span class="control-label" for="monthSelect">Місяць:</span>
-          <div class="custom-select-wrapper">
-            <select id="monthSelect" class="custom-select">
-              <option value="all" selected>Усі місяці</option>
-            </select>
-            <i data-lucide="chevron-down" class="sort-icon"></i>
+        <!-- 2. ВКЛАДКИ МІСЯЦІВ (Найновіший місяць активний за замовчуванням) -->
+        <div class="month-tabs-wrapper">
+          <span class="control-label">Місяць:</span>
+          <div class="month-tabs-container" id="monthTabs">
+            <!-- Вкладки генеруються динамічно із Google Таблиці -->
           </div>
         </div>
       </div>
@@ -1432,13 +1489,13 @@
     let allNewsItems = [];
     let searchTerm = '';
     let sortKey = 'date-desc';
-    let selectedMonth = 'all';
+    let selectedMonth = ''; // Визначається динамічно як найновіший місяць при завантаженні
 
     // DOM елементи
     const mainSearchInput = document.getElementById('mainSearchInput');
     const floatingSearchInput = document.getElementById('floatingSearchInput');
     const sortSelect = document.getElementById('sortSelect');
-    const monthSelect = document.getElementById('monthSelect');
+    const monthTabs = document.getElementById('monthTabs');
     const loadingState = document.getElementById('loadingState');
     const errorState = document.getElementById('errorState');
     const newsGrid = document.getElementById('newsGrid');
@@ -1467,6 +1524,7 @@
           if (!text) return;
 
           let formatted = escapeHtml(text);
+          // Стилі комбінуються незалежно (може бути одночасно і жирний, і курсив)
           if (inheritedBold && inheritedItalic) {
             formatted = `<strong><em>${formatted}</em></strong>`;
           } else if (inheritedBold) {
@@ -1677,6 +1735,9 @@
         .replace(/'/g, '&#039;');
     }
 
+    /**
+     * Точний парсер дати для сортування та виділення місяця
+     */
     function parseDateString(dateStr) {
       if (!dateStr || dateStr === "—") return new Date(0);
       let cleanStr = String(dateStr).trim();
@@ -1720,8 +1781,12 @@
       return isNaN(parsed.getTime()) ? new Date(0) : parsed;
     }
 
-    function updateMonthDropdown(items) {
-      if (!monthSelect) return;
+    /**
+     * Динамічна генерація ВКЛАДОК МІСЯЦІВ (від найновішого до найстарішого)
+     * Найновіший місяць активний за замовчуванням при першому візиті!
+     */
+    function updateMonthTabs(items) {
+      if (!monthTabs) return;
 
       const monthMap = new Map();
       items.forEach(item => {
@@ -1730,23 +1795,36 @@
         }
       });
 
+      // Сортування ключів місяців від найновіших до найстаріших (наприклад: "2026-10", "2026-09", "2026-08")
       const sortedMonthKeys = Array.from(monthMap.keys()).sort().reverse();
 
-      let optionsHtml = '<option value="all">Усі місяці</option>';
+      // За замовчуванням обираємо НАЙНОВІШИЙ місяць
+      if (!selectedMonth || (!sortedMonthKeys.includes(selectedMonth) && selectedMonth !== 'all')) {
+        selectedMonth = sortedMonthKeys[0] || 'all';
+      }
+
+      let tabsHtml = '';
       sortedMonthKeys.forEach(key => {
         const label = monthMap.get(key);
-        const isSelected = key === selectedMonth ? 'selected' : '';
-        optionsHtml += `<option value="${key}" ${isSelected}>${label}</option>`;
+        const isActive = key === selectedMonth ? 'active' : '';
+        tabsHtml += `<button type="button" class="month-tab-btn ${isActive}" data-month="${key}">${label}</button>`;
       });
 
-      monthSelect.innerHTML = optionsHtml;
+      // Також додаємо вкладку "Усі місяці"
+      const isAllActive = selectedMonth === 'all' ? 'active' : '';
+      tabsHtml += `<button type="button" class="month-tab-btn ${isAllActive}" data-month="all">Усі місяці</button>`;
 
-      if (selectedMonth && (sortedMonthKeys.includes(selectedMonth) || selectedMonth === 'all')) {
-        monthSelect.value = selectedMonth;
-      } else {
-        monthSelect.value = 'all';
-        selectedMonth = 'all';
-      }
+      monthTabs.innerHTML = tabsHtml;
+
+      // Підключення слухачів натискання на вкладки
+      monthTabs.querySelectorAll('.month-tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          selectedMonth = btn.getAttribute('data-month');
+          monthTabs.querySelectorAll('.month-tab-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          updateAppUI();
+        });
+      });
     }
 
     function processInlineFormatting(text) {
@@ -2020,6 +2098,7 @@
           if (match) youtubeId = match[1];
         }
 
+        // Обчислення ключа місяця для вкладок (наприклад: "2026-10" => "Жовтень 2026")
         const dateObj = parseDateString(rawDate || date);
         let monthKey = "";
         let monthLabel = "";
@@ -2049,7 +2128,8 @@
         });
       }
 
-      updateMonthDropdown(allNewsItems);
+      // Генерація вкладок місяців
+      updateMonthTabs(allNewsItems);
     }
 
     function showLoading(active) {
@@ -2078,11 +2158,6 @@
 
       sortSelect.addEventListener('change', (e) => {
         sortKey = e.target.value;
-        updateAppUI();
-      });
-
-      monthSelect.addEventListener('change', (e) => {
-        selectedMonth = e.target.value;
         updateAppUI();
       });
 
@@ -2116,7 +2191,7 @@
     }
 
     /**
-     * Сортування від найновіших до найстаріших та фільтр за місяцем
+     * Сортування від найновіших до найстаріших та фільтр за обраною вкладкою місяця
      */
     function getProcessedDataset() {
       let data = [...allNewsItems];
@@ -2133,12 +2208,12 @@
         });
       }
 
-      // Ізоляція за місяцем
+      // Ізоляція за місяцем: якщо обрано вкладку місяця, показувати новини лише цього місяця
       if (selectedMonth && selectedMonth !== 'all') {
         data = data.filter(item => item.monthKey === selectedMonth);
       }
 
-      // Сортування (date-desc: найновіші спочатку)
+      // Сортування (date-desc: найновіші спочатку за замовчуванням)
       if (sortKey === 'date-desc') {
         data.sort((a, b) => {
           const timeA = a.dateObj ? a.dateObj.getTime() : 0;
@@ -2188,7 +2263,7 @@
           <div class="no-results" style="width: 100%;">
             <i data-lucide="search-slash" style="width: 44px; height: 44px; opacity: 0.5; margin-bottom: 12px; color: #E2E8F0;"></i>
             <h3 style="color: #FFFFFF;">Новин не знайдено</h3>
-            <p style="color: #E2E8F0;">Спробуйте обрати інший місяць або змінити пошуковий запит.</p>
+            <p style="color: #E2E8F0;">Спробуйте обрати іншу вкладку місяця або змінити пошуковий запит.</p>
           </div>
         `;
         lucide.createIcons();
@@ -2264,7 +2339,6 @@
           `;
         }
 
-        // Лід передається повністю і обмежується 12 рядками через CSS line-clamp
         const cleanLead = item.lead ? escapeHtml(item.lead.trim()) : '';
 
         const cardHtml = `
